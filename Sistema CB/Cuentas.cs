@@ -29,9 +29,9 @@ namespace Sistema_CB
 
         private void MostrarCuentas()
         {
-            dataGridCuentas.DataSource = objCtrlbauche.ListarCuentas();
-            dataGridCuentas.Columns["idcuenta"].Visible = false;
-            dataGridCuentas.Columns["banco"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridCuentas.DataSource = objCtrlbauche.CargarGananciaVentas();
+            dataGridCuentas.Columns["cantidad"].Width = 60;
+           // dataGridCuentas.Columns["banco"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
 
         private void label4_Click(object sender, EventArgs e)

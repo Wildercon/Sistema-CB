@@ -619,6 +619,26 @@ namespace Sistema_CB
             return tabla;
         }
 
+        public DataTable CargarGananciaVentas()
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                comando.Connection = conexionBD.abrirconexion();
+                comando.CommandText = "CargarGananciaVentas";
+                comando.CommandType = CommandType.StoredProcedure;
+                //comando.Parameters.AddWithValue("Idclient", datos.IdCliente);
+                LeerFilas = comando.ExecuteReader();
+                tabla.Load(LeerFilas);
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+            LeerFilas.Close();
+            conexionBD.cerrarConexion();
+            return tabla;
+        }
         public void AgregarBauche(Bauche datos)
         {
             try

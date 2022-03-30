@@ -106,6 +106,16 @@ namespace Sistema_CB
             }
             else if (operacion == "Editar")
             {
+                if (cbCliente.SelectedValue == null)
+                {
+                    DialogResult resultado = MessageBox.Show("Cliente No Esta Registrado", "Registrar Cliente?", MessageBoxButtons.OKCancel);
+
+                    if (resultado == DialogResult.OK)
+                    {
+                        btnCliente_Click(sender, e);
+                        bau.IdCliente = Convert.ToInt32(cbCliente.SelectedValue);
+                    }
+                }
                 bau.IdBauche = Convert.ToInt32(lbIdFactura.Text);
                 objCtrlBauche.EditarBauche(bau);
                 operacion = "Insertar";

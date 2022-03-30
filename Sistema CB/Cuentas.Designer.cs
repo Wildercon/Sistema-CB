@@ -72,7 +72,7 @@ namespace Sistema_CB
             this.dataGridCuentas.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridCuentas.EnableHeadersVisualStyles = false;
             this.dataGridCuentas.GridColor = System.Drawing.Color.SteelBlue;
-            this.dataGridCuentas.Location = new System.Drawing.Point(33, 53);
+            this.dataGridCuentas.Location = new System.Drawing.Point(6, 24);
             this.dataGridCuentas.Name = "dataGridCuentas";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -91,7 +91,7 @@ namespace Sistema_CB
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
             this.dataGridCuentas.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridCuentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridCuentas.Size = new System.Drawing.Size(242, 281);
+            this.dataGridCuentas.Size = new System.Drawing.Size(351, 372);
             this.dataGridCuentas.TabIndex = 2;
             // 
             // groupBox1
@@ -101,7 +101,7 @@ namespace Sistema_CB
             this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(31, 23);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(335, 421);
+            this.groupBox1.Size = new System.Drawing.Size(376, 421);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Disponible";
