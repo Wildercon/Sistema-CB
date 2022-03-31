@@ -25,23 +25,30 @@ namespace Sistema_CB
             lblMontoXCobrar.Text = objCtrlbauche.SumarCuentasXCobrar();
             lblRecibidobs.Text = objCtrlbauche.SumarRecibidoDia(fecha);
             lblVendidoD.Text = objCtrlbauche.SumarVendidoD(fecha);
+            txtFecha.Text = fecha;
         }
 
         private void MostrarCuentas()
         {
-            dataGridCuentas.DataSource = objCtrlbauche.CargarGananciaVentas();
-            dataGridCuentas.Columns["cantidad"].Width = 60;
-           // dataGridCuentas.Columns["banco"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Bauche bau = new Bauche();
+            bau.Fecha = txtFecha.Text;
+            dataGridCuentas.DataSource = objCtrlbauche.CargarGananciaVentas(bau);
+            dataGridCuentas.Columns["cantidad"].Width = 70;
+            dataGridCuentas.Columns["Ganancia"].Width = 70;
+            dataGridCuentas.Columns["precio"].Width = 70;
+            dataGridCuentas.Columns["producto"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            double suma = 0 ;
+            foreach (DataGridViewRow row in dataGridCuentas.Rows)
+            {
+                if (row.Cells["Ganancia"].Value != null)
+                    suma += (double)row.Cells["Ganancia"].Value;
+                lblGanBs.Text = Convert.ToString(suma);
+            }
         }
 
-        private void label4_Click(object sender, EventArgs e)
+        private void btnConsultar_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
+            MostrarCuentas();
         }
     }
 }

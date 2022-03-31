@@ -143,9 +143,8 @@ namespace Sistema_CB
             }
         }
 
-        private void Credito_Load(object sender, EventArgs e)
-        {
+    
 
-        }
+      
     }
 }

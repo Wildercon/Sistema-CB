@@ -619,7 +619,7 @@ namespace Sistema_CB
             return tabla;
         }
 
-        public DataTable CargarGananciaVentas()
+        public DataTable CargarGananciaVentas(Bauche datos)
         {
             DataTable tabla = new DataTable();
             try
@@ -627,7 +627,7 @@ namespace Sistema_CB
                 comando.Connection = conexionBD.abrirconexion();
                 comando.CommandText = "CargarGananciaVentas";
                 comando.CommandType = CommandType.StoredProcedure;
-                //comando.Parameters.AddWithValue("Idclient", datos.IdCliente);
+                comando.Parameters.AddWithValue("fech", datos.Fecha);
                 LeerFilas = comando.ExecuteReader();
                 tabla.Load(LeerFilas);
             }

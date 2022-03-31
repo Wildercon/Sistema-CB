@@ -248,7 +248,6 @@ namespace Sistema_CB
             this.Controls.Add(this.groupBox1);
             this.Name = "Credito";
             this.Text = "Credito";
-            this.Load += new System.EventHandler(this.Credito_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProductos)).EndInit();
