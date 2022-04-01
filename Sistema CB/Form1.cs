@@ -179,6 +179,38 @@ namespace Sistema_CB
             abrirFormularioHijo(new Credito());
         }
 
+        private void btnMenu_Click(object sender, EventArgs e)
+        {
+            if(PanelMenu.Width == 211)
+            {
+                PanelMenu.Width = 70;
+                btnBauche.Text = "";
+                btnAjustes.Text = "";
+                btnCausa.Text = "";
+                btnCompraVenta.Text = "";
+                btnTransferencia.Text = "";
+                btnCuentas.Text = "";
+                BtnCredito.Text = "";
+                btnInicio.Width = 70;
+                btnInicio.Height = 70;
+                this.Width = 1020;
+            }
+            else
+            {
+                PanelMenu.Width = 211;
+                btnBauche.Text = "Venta";
+                btnAjustes.Text = "Ajustes";
+                btnCausa.Text = "Causa";
+                btnCompraVenta.Text = "Compra / Venta";
+                btnTransferencia.Text = "Transferencia";
+                btnCuentas.Text = "Cuentas";
+                BtnCredito.Text = "Credito";
+                btnInicio.Width = 205;
+                btnInicio.Height = 131;
+                this.Width = 1172;
+            }
+        }
+
         private void btnMaximizar_Click(object sender, EventArgs e)
         {
             lx = this.Location.X;

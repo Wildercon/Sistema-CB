@@ -50,6 +50,7 @@ namespace Sistema_CB
             this.panelSombra = new System.Windows.Forms.Panel();
             this.panelContenedor = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnMenu = new System.Windows.Forms.PictureBox();
             this.PanelMenu.SuspendLayout();
             this.PanelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnInicio)).BeginInit();
@@ -61,6 +62,7 @@ namespace Sistema_CB
             ((System.ComponentModel.ISupportInitialize)(this.iconTitleBar)).BeginInit();
             this.panelContenedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMenu)).BeginInit();
             this.SuspendLayout();
             // 
             // PanelMenu
@@ -250,6 +252,7 @@ namespace Sistema_CB
             // panelTitleBar
             // 
             this.panelTitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(25)))), ((int)(((byte)(62)))));
+            this.panelTitleBar.Controls.Add(this.btnMenu);
             this.panelTitleBar.Controls.Add(this.btnRestaurar);
             this.panelTitleBar.Controls.Add(this.brtMinimizar);
             this.panelTitleBar.Controls.Add(this.btnMaximizar);
@@ -320,7 +323,7 @@ namespace Sistema_CB
             // 
             this.labelTitleBar.AutoSize = true;
             this.labelTitleBar.ForeColor = System.Drawing.Color.Gainsboro;
-            this.labelTitleBar.Location = new System.Drawing.Point(54, 13);
+            this.labelTitleBar.Location = new System.Drawing.Point(107, 13);
             this.labelTitleBar.Name = "labelTitleBar";
             this.labelTitleBar.Size = new System.Drawing.Size(32, 13);
             this.labelTitleBar.TabIndex = 1;
@@ -334,7 +337,7 @@ namespace Sistema_CB
             this.iconTitleBar.IconColor = System.Drawing.Color.MediumPurple;
             this.iconTitleBar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconTitleBar.IconSize = 40;
-            this.iconTitleBar.Location = new System.Drawing.Point(6, 3);
+            this.iconTitleBar.Location = new System.Drawing.Point(59, 3);
             this.iconTitleBar.Name = "iconTitleBar";
             this.iconTitleBar.Size = new System.Drawing.Size(41, 40);
             this.iconTitleBar.TabIndex = 0;
@@ -371,6 +374,17 @@ namespace Sistema_CB
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
+            // btnMenu
+            // 
+            this.btnMenu.Image = ((System.Drawing.Image)(resources.GetObject("btnMenu.Image")));
+            this.btnMenu.Location = new System.Drawing.Point(0, 0);
+            this.btnMenu.Name = "btnMenu";
+            this.btnMenu.Size = new System.Drawing.Size(50, 46);
+            this.btnMenu.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnMenu.TabIndex = 6;
+            this.btnMenu.TabStop = false;
+            this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
+            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -395,6 +409,7 @@ namespace Sistema_CB
             ((System.ComponentModel.ISupportInitialize)(this.iconTitleBar)).EndInit();
             this.panelContenedor.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMenu)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -421,6 +436,7 @@ namespace Sistema_CB
         private System.Windows.Forms.PictureBox btnMaximizar;
         private System.Windows.Forms.PictureBox btnRestaurar;
         private FontAwesome.Sharp.IconButton BtnCredito;
+        private System.Windows.Forms.PictureBox btnMenu;
     }
 }
 
