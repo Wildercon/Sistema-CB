@@ -44,6 +44,7 @@ namespace Sistema_CB
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnPdfGrupo = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.txtCanCauGrup = new System.Windows.Forms.TextBox();
             this.btnQuitar = new System.Windows.Forms.Button();
@@ -60,7 +61,8 @@ namespace Sistema_CB
             this.btnPdf = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnCliente = new System.Windows.Forms.Button();
-            this.btnPdfGrupo = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.CbPortador = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridCausa)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -195,6 +197,8 @@ namespace Sistema_CB
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.CbPortador);
+            this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.btnPdfGrupo);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.txtCanCauGrup);
@@ -214,10 +218,21 @@ namespace Sistema_CB
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Grupos";
             // 
+            // btnPdfGrupo
+            // 
+            this.btnPdfGrupo.ForeColor = System.Drawing.Color.Black;
+            this.btnPdfGrupo.Location = new System.Drawing.Point(601, 194);
+            this.btnPdfGrupo.Name = "btnPdfGrupo";
+            this.btnPdfGrupo.Size = new System.Drawing.Size(87, 31);
+            this.btnPdfGrupo.TabIndex = 11;
+            this.btnPdfGrupo.Text = "Pdf";
+            this.btnPdfGrupo.UseVisualStyleBackColor = true;
+            this.btnPdfGrupo.Click += new System.EventHandler(this.btnPdfGrupo_Click);
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(475, 125);
+            this.label6.Location = new System.Drawing.Point(486, 125);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 17);
             this.label6.TabIndex = 10;
@@ -254,15 +269,15 @@ namespace Sistema_CB
             // 
             // txtBillete
             // 
-            this.txtBillete.Location = new System.Drawing.Point(569, 88);
+            this.txtBillete.Location = new System.Drawing.Point(571, 85);
             this.txtBillete.Name = "txtBillete";
-            this.txtBillete.Size = new System.Drawing.Size(111, 25);
+            this.txtBillete.Size = new System.Drawing.Size(117, 25);
             this.txtBillete.TabIndex = 6;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(465, 91);
+            this.label4.Location = new System.Drawing.Point(477, 88);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(88, 17);
             this.label4.TabIndex = 5;
@@ -271,7 +286,7 @@ namespace Sistema_CB
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(496, 46);
+            this.label3.Location = new System.Drawing.Point(497, 21);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 17);
             this.label3.TabIndex = 4;
@@ -279,7 +294,7 @@ namespace Sistema_CB
             // 
             // numGrupoCausa
             // 
-            this.numGrupoCausa.Location = new System.Drawing.Point(572, 43);
+            this.numGrupoCausa.Location = new System.Drawing.Point(570, 21);
             this.numGrupoCausa.Name = "numGrupoCausa";
             this.numGrupoCausa.Size = new System.Drawing.Size(53, 25);
             this.numGrupoCausa.TabIndex = 3;
@@ -404,16 +419,22 @@ namespace Sistema_CB
             this.btnCliente.UseVisualStyleBackColor = true;
             this.btnCliente.Click += new System.EventHandler(this.btnCliente_Click);
             // 
-            // btnPdfGrupo
+            // label7
             // 
-            this.btnPdfGrupo.ForeColor = System.Drawing.Color.Black;
-            this.btnPdfGrupo.Location = new System.Drawing.Point(601, 194);
-            this.btnPdfGrupo.Name = "btnPdfGrupo";
-            this.btnPdfGrupo.Size = new System.Drawing.Size(87, 31);
-            this.btnPdfGrupo.TabIndex = 11;
-            this.btnPdfGrupo.Text = "Pdf";
-            this.btnPdfGrupo.UseVisualStyleBackColor = true;
-            this.btnPdfGrupo.Click += new System.EventHandler(this.btnPdfGrupo_Click);
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(475, 53);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(76, 17);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "Portador:";
+            // 
+            // CbPortador
+            // 
+            this.CbPortador.FormattingEnabled = true;
+            this.CbPortador.Location = new System.Drawing.Point(571, 53);
+            this.CbPortador.Name = "CbPortador";
+            this.CbPortador.Size = new System.Drawing.Size(117, 25);
+            this.CbPortador.TabIndex = 13;
             // 
             // Causa
             // 
@@ -471,5 +492,7 @@ namespace Sistema_CB
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtCanCauGrup;
         private System.Windows.Forms.Button btnPdfGrupo;
+        private System.Windows.Forms.ComboBox CbPortador;
+        private System.Windows.Forms.Label label7;
     }
 }

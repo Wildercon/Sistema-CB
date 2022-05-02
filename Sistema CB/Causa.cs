@@ -36,6 +36,10 @@ namespace Sistema_CB
             cbCliente.AutoCompleteCustomSource = AutoListarClientes();
             cbCliente.AutoCompleteMode = AutoCompleteMode.Suggest;
             cbCliente.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            CbPortador.SelectedIndex = -1;
+            CbPortador.AutoCompleteCustomSource = AutoListarClientes();
+            CbPortador.AutoCompleteMode = AutoCompleteMode.Suggest;
+            CbPortador.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
 
         private void CargarCausa()
@@ -76,8 +80,12 @@ namespace Sistema_CB
             cbCliente.DataSource = objCtrl.ListarCliente();
             cbCliente.DisplayMember = "cliente";
             cbCliente.ValueMember = "id";
+            CbPortador.DataSource = objCtrl.ListarCliente();
+            CbPortador.DisplayMember = "cliente";
+            CbPortador.ValueMember = "id";
 
         }
+
 
         private void AgregarGrupo_Click(object sender, EventArgs e)
         {
@@ -211,6 +219,8 @@ namespace Sistema_CB
         {
             Bauche bau = new Bauche();
             bau.Grupo = Convert.ToInt32(numGrupoCausa.Value);
+            bau.Cliente = CbPortador.Text;
+            bau.Codbillete = txtBillete.Text;
             objCtrlBauche.CrearPdfGrupo(bau);
         
         }
