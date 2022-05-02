@@ -1142,7 +1142,7 @@ namespace Sistema_CB
 
         public void CrearPdf()
         {
-            PdfWriter pdfwriter = new PdfWriter("c://Reporte.pdf");
+            PdfWriter pdfwriter = new PdfWriter(@"C:\Users\Cb\Documents\Reporte.pdf");
             PdfDocument pdf = new PdfDocument(pdfwriter);
             Document documento = new Document(pdf, PageSize.LETTER);
 
@@ -1181,11 +1181,65 @@ namespace Sistema_CB
                 MessageBox.Show(e.ToString());
             }
 
+            documento.Add(tabla);
+            documento.Close();
+            MessageBox.Show("Se Genero el reporte");
+            LeerFilas.Close();
+            conexionBD.cerrarConexion();
+        }
+
+        public void CrearPdfGrupo(Bauche dato)
+        {
+            int grupo = dato.Grupo; 
+            PdfWriter pdfwriter = new PdfWriter(@"C:\Users\Wilcon\Documents\grupo'"+grupo+"'.pdf");
+            PdfDocument pdf = new PdfDocument(pdfwriter);
+            Document documento = new Document(pdf, PageSize.LETTER);
+
+            documento.SetMargins(30, 20, 55, 20);
+
+            PdfFont fontcolumnas = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
+            PdfFont fontcontenido = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
+
+            string[] columnas = { "Cant" ,"cliente", "direccion", };
+
+            float[] tamanios = { 2, 4, 4, };
+            Table tabla = new Table(UnitValue.CreatePercentArray(tamanios));
+            tabla.SetWidth(UnitValue.CreatePercentValue(100));
+
+            foreach (string columna in columnas)
+            {
+                tabla.AddHeaderCell(new Cell().Add(new Paragraph(columna).SetFont(fontcolumnas)));
+            }
+            try
+            {
+                comando.Connection = conexionBD.abrirconexion();
+                comando.CommandText = "CargarGrupoCausa";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("grup",dato.Grupo);
+                LeerFilas = comando.ExecuteReader();
+                int contador = 1;
+                while (LeerFilas.Read())
+                {
+                    
+
+                    tabla.AddCell(new Cell().Add(new Paragraph(Convert.ToString (contador))));
+                    tabla.AddCell(new Cell().Add(new Paragraph(LeerFilas["cliente"].ToString()).SetFont(fontcontenido)));
+                    tabla.AddCell(new Cell().Add(new Paragraph(LeerFilas["direccion"].ToString()).SetFont(fontcontenido)));
+                    //tabla.AddCell(new Cell().Add(new Paragraph(LeerFilas["Grupo"].ToString()).SetFont(fontcontenido)));
+                    contador++;
+                }
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+
 
             documento.Add(tabla);
             documento.Close();
             MessageBox.Show("Se Genero el reporte");
             LeerFilas.Close();
+            comando.Parameters.Clear();
             conexionBD.cerrarConexion();
         }
 

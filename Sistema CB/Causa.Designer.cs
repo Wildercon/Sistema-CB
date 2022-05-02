@@ -60,6 +60,7 @@ namespace Sistema_CB
             this.btnPdf = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnCliente = new System.Windows.Forms.Button();
+            this.btnPdfGrupo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridCausa)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -194,6 +195,7 @@ namespace Sistema_CB
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnPdfGrupo);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.txtCanCauGrup);
             this.groupBox2.Controls.Add(this.btnQuitar);
@@ -231,7 +233,7 @@ namespace Sistema_CB
             // btnQuitar
             // 
             this.btnQuitar.ForeColor = System.Drawing.Color.Black;
-            this.btnQuitar.Location = new System.Drawing.Point(592, 174);
+            this.btnQuitar.Location = new System.Drawing.Point(601, 157);
             this.btnQuitar.Name = "btnQuitar";
             this.btnQuitar.Size = new System.Drawing.Size(87, 31);
             this.btnQuitar.TabIndex = 8;
@@ -242,7 +244,7 @@ namespace Sistema_CB
             // AgregarGrupo
             // 
             this.AgregarGrupo.ForeColor = System.Drawing.Color.Black;
-            this.AgregarGrupo.Location = new System.Drawing.Point(482, 174);
+            this.AgregarGrupo.Location = new System.Drawing.Point(478, 157);
             this.AgregarGrupo.Name = "AgregarGrupo";
             this.AgregarGrupo.Size = new System.Drawing.Size(87, 31);
             this.AgregarGrupo.TabIndex = 7;
@@ -402,6 +404,17 @@ namespace Sistema_CB
             this.btnCliente.UseVisualStyleBackColor = true;
             this.btnCliente.Click += new System.EventHandler(this.btnCliente_Click);
             // 
+            // btnPdfGrupo
+            // 
+            this.btnPdfGrupo.ForeColor = System.Drawing.Color.Black;
+            this.btnPdfGrupo.Location = new System.Drawing.Point(601, 194);
+            this.btnPdfGrupo.Name = "btnPdfGrupo";
+            this.btnPdfGrupo.Size = new System.Drawing.Size(87, 31);
+            this.btnPdfGrupo.TabIndex = 11;
+            this.btnPdfGrupo.Text = "Pdf";
+            this.btnPdfGrupo.UseVisualStyleBackColor = true;
+            this.btnPdfGrupo.Click += new System.EventHandler(this.btnPdfGrupo_Click);
+            // 
             // Causa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -457,5 +470,6 @@ namespace Sistema_CB
         private System.Windows.Forms.Button btnCliente;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtCanCauGrup;
+        private System.Windows.Forms.Button btnPdfGrupo;
     }
 }

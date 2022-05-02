@@ -207,6 +207,13 @@ namespace Sistema_CB
             form.Show();
         }
 
-
+        private void btnPdfGrupo_Click(object sender, EventArgs e)
+        {
+            Bauche bau = new Bauche();
+            bau.Grupo = Convert.ToInt32(numGrupoCausa.Value);
+            objCtrlBauche.CrearPdfGrupo(bau);
+        
+        }
     }
 }
+
