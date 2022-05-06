@@ -232,6 +232,7 @@ namespace Sistema_CB
             // txtCodigo
             // 
             this.txtCodigo.Location = new System.Drawing.Point(94, 21);
+            this.txtCodigo.MaxLength = 4;
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.Size = new System.Drawing.Size(135, 25);
             this.txtCodigo.TabIndex = 6;

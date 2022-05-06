@@ -406,6 +406,22 @@ namespace Sistema_CB
                 txtDireccion.Text = objCtrlBauche.CompletarTxtDireccion(dato);
                 objCtrlBauche.VerificarBaucheDeuda(dato);
                 objCtrlBauche.VerificarClienteCredito(dato);
+                
+                if (operacion == "Editar")
+                {
+                    Bauche bau = new Bauche();
+                    bau.Codigo = Convert.ToInt32(txtCodigo.Text);
+                    bau.Fecha = txtFecha.Text;
+                    bau.Monto = Convert.ToDouble(txtMonto.Text);
+                    bau.Idcuenta = Convert.ToInt32(cbBanco.SelectedValue);
+                    bau.IdCliente = Convert.ToInt32(cbCliente.SelectedValue);
+                    bau.Estado = cbEstado.Text;
+                    bau.Observaciones = txtObervaciones.Text;
+                    
+                    bau.IdBauche = Convert.ToInt32(lbIdFactura.Text);
+                    objCtrlBauche.EditarBauche(bau);
+
+                }
             }
             
         }
@@ -431,11 +447,17 @@ namespace Sistema_CB
         {
             if (dataGridBauche.SelectedRows.Count > 0)
             {
-                Bauche bau = new Bauche();
-                bau.IdFactura1 = Convert.ToInt32(dataGridProductos.CurrentRow.Cells[0].Value);
-                objCtrlBauche.BorrarProFactura(bau);              
-                CargarProductos();
-                calcularFactura();
+                DialogResult resultado = MessageBox.Show("Se Borrara El Producto", "Eliminar?", MessageBoxButtons.OKCancel);
+
+                if (resultado == DialogResult.OK)
+                {
+                    Bauche bau = new Bauche();
+                    bau.IdFactura1 = Convert.ToInt32(dataGridProductos.CurrentRow.Cells[0].Value);
+                    objCtrlBauche.BorrarProFactura(bau);
+                    CargarProductos();
+                    calcularFactura();
+                }
+               
             }
            
         }

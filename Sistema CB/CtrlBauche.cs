@@ -557,6 +557,28 @@ namespace Sistema_CB
             return tabla;
         }
 
+        public DataTable ListarGrupoC()
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                comando.Connection = conexionBD.abrirconexion();
+                comando.CommandText = "ListarGrupoC";
+                comando.CommandType = CommandType.StoredProcedure;
+                LeerFilas = comando.ExecuteReader();
+                tabla.Load(LeerFilas);
+            }catch(MySqlException e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+            finally
+            {
+                LeerFilas.Close();
+                conexionBD.cerrarConexion();
+            }
+            return tabla;
+        }
+
         public DataTable ListarVendedores()
         {
             DataTable tabla = new DataTable();
@@ -845,6 +867,7 @@ namespace Sistema_CB
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.AddWithValue("IdClient", datos.IdCliente);
                 comando.Parameters.AddWithValue("observacio", datos.Observaciones);
+                comando.Parameters.AddWithValue("grup", datos.Grupo);
                 comando.ExecuteNonQuery();
             }catch (MySqlException e)
             {
