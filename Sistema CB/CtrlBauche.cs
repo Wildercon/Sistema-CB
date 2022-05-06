@@ -1404,6 +1404,7 @@ namespace Sistema_CB
                 comando.Parameters.AddWithValue("grup", datos.Grupo);
                 LeerFilas = comando.ExecuteReader();
                 tabla.Load(LeerFilas);
+                
             }
             catch (MySqlException e)
             {
@@ -1414,6 +1415,34 @@ namespace Sistema_CB
             conexionBD.cerrarConexion();
             comando.Parameters.Clear();
             return tabla;
+        }
+        public int ContarGrupoCausa(Bauche datos)
+        {
+            int cont = 0;
+            try
+            {
+                comando.Connection = conexionBD.abrirconexion();
+                comando.CommandText = "CargarGrupoCausa";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("grup", datos.Grupo);
+                LeerFilas = comando.ExecuteReader();
+                
+                while (LeerFilas.Read())
+                {
+                    cont++;
+                }
+                 
+
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+
+            LeerFilas.Close();
+            conexionBD.cerrarConexion();
+            comando.Parameters.Clear();
+            return cont;
         }
 
         public DataTable CargarProCre(Bauche datos)

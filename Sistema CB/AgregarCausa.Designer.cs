@@ -38,6 +38,7 @@ namespace Sistema_CB
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cbGrupo = new System.Windows.Forms.ComboBox();
+            this.lblCantGrupo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cbCliente
@@ -115,7 +116,7 @@ namespace Sistema_CB
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Lucida Calligraphy", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(44, 100);
+            this.label4.Location = new System.Drawing.Point(43, 100);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(55, 17);
             this.label4.TabIndex = 8;
@@ -129,6 +130,17 @@ namespace Sistema_CB
             this.cbGrupo.Name = "cbGrupo";
             this.cbGrupo.Size = new System.Drawing.Size(139, 25);
             this.cbGrupo.TabIndex = 9;
+            this.cbGrupo.SelectedIndexChanged += new System.EventHandler(this.cbGrupo_SelectedIndexChanged);
+            // 
+            // lblCantGrupo
+            // 
+            this.lblCantGrupo.AutoSize = true;
+            this.lblCantGrupo.Font = new System.Drawing.Font("Lucida Calligraphy", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCantGrupo.ForeColor = System.Drawing.Color.White;
+            this.lblCantGrupo.Location = new System.Drawing.Point(224, 181);
+            this.lblCantGrupo.Name = "lblCantGrupo";
+            this.lblCantGrupo.Size = new System.Drawing.Size(0, 17);
+            this.lblCantGrupo.TabIndex = 10;
             // 
             // AgregarCausa
             // 
@@ -136,6 +148,7 @@ namespace Sistema_CB
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(252, 219);
+            this.Controls.Add(this.lblCantGrupo);
             this.Controls.Add(this.cbGrupo);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -164,5 +177,6 @@ namespace Sistema_CB
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         public System.Windows.Forms.ComboBox cbGrupo;
+        private System.Windows.Forms.Label lblCantGrupo;
     }
 }

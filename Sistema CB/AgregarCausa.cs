@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -111,6 +112,18 @@ namespace Sistema_CB
                 //el resto de teclas pulsadas se desactivan
                 e.Handled = true;
             }
+        }
+
+        private void cbGrupo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cbGrupo.SelectedIndex > 0)
+            {
+                Bauche bau = new Bauche();
+                bau.Grupo = Convert.ToInt32(cbGrupo.SelectedValue);
+                int CantGrupo = objCtrlBauche.ContarGrupoCausa(bau);
+                lblCantGrupo.Text = CantGrupo.ToString();
+            }
+            
         }
     }
 }
