@@ -35,7 +35,8 @@ namespace Sistema_CB
         private int idvendedor;
         private double montovendedor;
         private double preciodolar;
-        private int idcuenta; 
+        private int idcuenta;
+        private double total;
 
         public int IdBauche { get => idBauche; set => idBauche = value; }
         public int Codigo { get => codigo; set => codigo = value; }
@@ -65,5 +66,6 @@ namespace Sistema_CB
         public double Montovendedor { get => montovendedor; set => montovendedor = value; }
         public double Preciodolar { get => preciodolar; set => preciodolar = value; }
         public int Idcuenta { get => idcuenta; set => idcuenta = value; }
+        public double Total { get => total; set => total = value; }
     }
 }

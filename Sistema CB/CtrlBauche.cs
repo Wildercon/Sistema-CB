@@ -23,6 +23,7 @@ namespace Sistema_CB
         private MySqlDataReader LeerFilas;
         private string datos ;
         private string mensaje = "";
+        private double montoO;
 
         public string CompletarTxtDireccion(int dato)
         {
@@ -178,6 +179,29 @@ namespace Sistema_CB
                 MessageBox.Show(e.ToString());
             }
             return mensaje;
+        }
+
+        public double ControlMontoV(Bauche dato)
+        {
+            try
+            {
+                comando.Connection = conexionBD.abrirconexion();
+                comando.CommandText = "ControlMontoV";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("idvendedo", dato.Idvendedor);
+                LeerFilas = comando.ExecuteReader();
+                if (LeerFilas.Read())
+                {
+                    montoO = Convert.ToDouble(LeerFilas[0]);
+                }
+            }catch(MySqlException e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+            LeerFilas.Close();
+            comando.Parameters.Clear();
+            conexionBD.cerrarConexion();
+            return montoO;
         }
 
         public void VerificarBaucheDeuda(int dato)
@@ -641,6 +665,27 @@ namespace Sistema_CB
             return tabla;
         }
 
+        public DataTable CargarDetalleVendedor(Bauche datos)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                comando.Connection = conexionBD.abrirconexion();
+                comando.CommandText = "CargarDetalleVendedor";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("idvendedo", datos.Idvendedor);
+                LeerFilas = comando.ExecuteReader();
+                tabla.Load(LeerFilas);
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+            LeerFilas.Close();
+            comando.Parameters.Clear();
+            conexionBD.cerrarConexion();
+            return tabla;
+        }
         public DataTable CargarGananciaVentas(Bauche datos)
         {
             DataTable tabla = new DataTable();
@@ -658,6 +703,29 @@ namespace Sistema_CB
                 MessageBox.Show(e.ToString());
             }
             LeerFilas.Close();
+            comando.Parameters.Clear();
+            conexionBD.cerrarConexion();
+            return tabla;
+        }
+
+        public DataTable DetalleCompraCliente(Bauche datos)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                comando.Connection = conexionBD.abrirconexion();
+                comando.CommandText = "DetalleCompraCliente";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("idcliente", datos.IdCliente);
+                LeerFilas = comando.ExecuteReader();
+                tabla.Load(LeerFilas);
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+            LeerFilas.Close();
+            comando.Parameters.Clear();
             conexionBD.cerrarConexion();
             return tabla;
         }
@@ -705,8 +773,11 @@ namespace Sistema_CB
                 comando.Parameters.AddWithValue("idvendedo", datos.Idvendedor);
                 comando.Parameters.AddWithValue("fech", datos.Fecha);
                 comando.Parameters.AddWithValue("mont", datos.Monto);
-                comando.Parameters.AddWithValue("bauch", datos.Codigo);
+                comando.Parameters.AddWithValue("bauch", datos.IdBauche);
+                comando.Parameters.AddWithValue("o", datos.Estado);
+                comando.Parameters.AddWithValue("tota", datos.Total);
                 comando.ExecuteNonQuery();
+                
             }
             catch (MySqlException e)
             {
@@ -739,6 +810,7 @@ namespace Sistema_CB
 
         public void AumentarMontoVendedor(Bauche datos)
         {
+
             try
             {
                 comando.Connection = conexionBD.abrirconexion();
@@ -752,9 +824,10 @@ namespace Sistema_CB
             {
                 MessageBox.Show(e.ToString());
             }
-
+            
             comando.Parameters.Clear();
             conexionBD.cerrarConexion();
+            
         }
         public void DisminuirMontoVendedor(Bauche datos)
         {
@@ -787,6 +860,7 @@ namespace Sistema_CB
                 comando.Parameters.AddWithValue("refe", datos.Banco);
                 comando.Parameters.AddWithValue("Idclient", datos.IdCliente);
                 comando.Parameters.AddWithValue("fech", datos.Fecha);
+                comando.Parameters.AddWithValue("op", datos.Estado);
                 comando.ExecuteNonQuery();
                 MessageBox.Show("Se Registro la compra");
             }

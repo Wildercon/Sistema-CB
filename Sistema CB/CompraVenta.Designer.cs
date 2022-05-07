@@ -35,6 +35,8 @@ namespace Sistema_CB
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridVentas = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btn_Cstavendedor = new System.Windows.Forms.Button();
+            this.txtCodigo = new System.Windows.Forms.TextBox();
             this.txtBauche = new System.Windows.Forms.TextBox();
             this.btnAgregarVenta = new System.Windows.Forms.Button();
             this.btnVentas = new System.Windows.Forms.Button();
@@ -66,6 +68,7 @@ namespace Sistema_CB
             this.btnRecibir = new System.Windows.Forms.Button();
             this.txtMontoxCobrar = new System.Windows.Forms.TextBox();
             this.cbClientexCobrar = new System.Windows.Forms.ComboBox();
+            this.btnConsultaClie = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVentas)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -92,7 +95,7 @@ namespace Sistema_CB
             this.dataGridVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridVentas.EnableHeadersVisualStyles = false;
             this.dataGridVentas.GridColor = System.Drawing.Color.SteelBlue;
-            this.dataGridVentas.Location = new System.Drawing.Point(47, 162);
+            this.dataGridVentas.Location = new System.Drawing.Point(19, 162);
             this.dataGridVentas.Name = "dataGridVentas";
             this.dataGridVentas.RowHeadersVisible = false;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(70)))));
@@ -102,11 +105,14 @@ namespace Sistema_CB
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
             this.dataGridVentas.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridVentas.Size = new System.Drawing.Size(306, 240);
+            this.dataGridVentas.Size = new System.Drawing.Size(364, 252);
             this.dataGridVentas.TabIndex = 2;
+            this.dataGridVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridVentas_CellClick);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btn_Cstavendedor);
+            this.groupBox1.Controls.Add(this.txtCodigo);
             this.groupBox1.Controls.Add(this.txtBauche);
             this.groupBox1.Controls.Add(this.btnAgregarVenta);
             this.groupBox1.Controls.Add(this.btnVentas);
@@ -127,9 +133,27 @@ namespace Sistema_CB
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ventas";
             // 
+            // btn_Cstavendedor
+            // 
+            this.btn_Cstavendedor.ForeColor = System.Drawing.Color.Black;
+            this.btn_Cstavendedor.Location = new System.Drawing.Point(316, 72);
+            this.btn_Cstavendedor.Name = "btn_Cstavendedor";
+            this.btn_Cstavendedor.Size = new System.Drawing.Size(83, 23);
+            this.btn_Cstavendedor.TabIndex = 17;
+            this.btn_Cstavendedor.Text = "Consultar ";
+            this.btn_Cstavendedor.UseVisualStyleBackColor = true;
+            // 
+            // txtCodigo
+            // 
+            this.txtCodigo.Font = new System.Drawing.Font("Lucida Calligraphy", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCodigo.Location = new System.Drawing.Point(19, 435);
+            this.txtCodigo.Name = "txtCodigo";
+            this.txtCodigo.Size = new System.Drawing.Size(52, 28);
+            this.txtCodigo.TabIndex = 16;
+            // 
             // txtBauche
             // 
-            this.txtBauche.Location = new System.Drawing.Point(151, 118);
+            this.txtBauche.Location = new System.Drawing.Point(157, 116);
             this.txtBauche.Name = "txtBauche";
             this.txtBauche.Size = new System.Drawing.Size(145, 25);
             this.txtBauche.TabIndex = 15;
@@ -137,7 +161,7 @@ namespace Sistema_CB
             // btnAgregarVenta
             // 
             this.btnAgregarVenta.ForeColor = System.Drawing.Color.Black;
-            this.btnAgregarVenta.Location = new System.Drawing.Point(310, 111);
+            this.btnAgregarVenta.Location = new System.Drawing.Point(316, 109);
             this.btnAgregarVenta.Name = "btnAgregarVenta";
             this.btnAgregarVenta.Size = new System.Drawing.Size(83, 36);
             this.btnAgregarVenta.TabIndex = 14;
@@ -148,7 +172,7 @@ namespace Sistema_CB
             // btnVentas
             // 
             this.btnVentas.ForeColor = System.Drawing.Color.Black;
-            this.btnVentas.Location = new System.Drawing.Point(302, 424);
+            this.btnVentas.Location = new System.Drawing.Point(302, 430);
             this.btnVentas.Name = "btnVentas";
             this.btnVentas.Size = new System.Drawing.Size(81, 36);
             this.btnVentas.TabIndex = 13;
@@ -159,7 +183,7 @@ namespace Sistema_CB
             // btnVendedores
             // 
             this.btnVendedores.ForeColor = System.Drawing.Color.Black;
-            this.btnVendedores.Location = new System.Drawing.Point(151, 424);
+            this.btnVendedores.Location = new System.Drawing.Point(179, 430);
             this.btnVendedores.Name = "btnVendedores";
             this.btnVendedores.Size = new System.Drawing.Size(103, 36);
             this.btnVendedores.TabIndex = 12;
@@ -170,7 +194,7 @@ namespace Sistema_CB
             // BtnBauche
             // 
             this.BtnBauche.ForeColor = System.Drawing.Color.Black;
-            this.BtnBauche.Location = new System.Drawing.Point(19, 424);
+            this.BtnBauche.Location = new System.Drawing.Point(78, 430);
             this.BtnBauche.Name = "BtnBauche";
             this.BtnBauche.Size = new System.Drawing.Size(81, 36);
             this.BtnBauche.TabIndex = 11;
@@ -181,7 +205,7 @@ namespace Sistema_CB
             // cbVendedor
             // 
             this.cbVendedor.FormattingEnabled = true;
-            this.cbVendedor.Location = new System.Drawing.Point(151, 75);
+            this.cbVendedor.Location = new System.Drawing.Point(157, 73);
             this.cbVendedor.Name = "cbVendedor";
             this.cbVendedor.Size = new System.Drawing.Size(145, 25);
             this.cbVendedor.TabIndex = 9;
@@ -189,7 +213,7 @@ namespace Sistema_CB
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(70, 121);
+            this.label4.Location = new System.Drawing.Point(76, 119);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(63, 17);
             this.label4.TabIndex = 7;
@@ -198,7 +222,7 @@ namespace Sistema_CB
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(53, 78);
+            this.label2.Location = new System.Drawing.Point(59, 76);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(80, 17);
             this.label2.TabIndex = 5;
@@ -206,7 +230,7 @@ namespace Sistema_CB
             // 
             // txtMonto
             // 
-            this.txtMonto.Location = new System.Drawing.Point(151, 34);
+            this.txtMonto.Location = new System.Drawing.Point(157, 32);
             this.txtMonto.Name = "txtMonto";
             this.txtMonto.Size = new System.Drawing.Size(145, 25);
             this.txtMonto.TabIndex = 4;
@@ -214,7 +238,7 @@ namespace Sistema_CB
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(53, 37);
+            this.label1.Location = new System.Drawing.Point(59, 35);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 17);
             this.label1.TabIndex = 3;
@@ -263,6 +287,7 @@ namespace Sistema_CB
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
+            this.groupBox3.Controls.Add(this.btnConsultaClie);
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.txt_BancoRef);
             this.groupBox3.Controls.Add(this.btnCliente);
@@ -351,7 +376,7 @@ namespace Sistema_CB
             this.dataGridCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridCompras.EnableHeadersVisualStyles = false;
             this.dataGridCompras.GridColor = System.Drawing.Color.SteelBlue;
-            this.dataGridCompras.Location = new System.Drawing.Point(31, 207);
+            this.dataGridCompras.Location = new System.Drawing.Point(19, 207);
             this.dataGridCompras.Name = "dataGridCompras";
             this.dataGridCompras.RowHeadersVisible = false;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(70)))));
@@ -361,7 +386,7 @@ namespace Sistema_CB
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
             this.dataGridCompras.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridCompras.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridCompras.Size = new System.Drawing.Size(306, 205);
+            this.dataGridCompras.Size = new System.Drawing.Size(373, 205);
             this.dataGridCompras.TabIndex = 9;
             // 
             // btnAgregarCompra
@@ -458,6 +483,17 @@ namespace Sistema_CB
             this.cbClientexCobrar.Size = new System.Drawing.Size(145, 25);
             this.cbClientexCobrar.TabIndex = 10;
             // 
+            // btnConsultaClie
+            // 
+            this.btnConsultaClie.ForeColor = System.Drawing.Color.Black;
+            this.btnConsultaClie.Location = new System.Drawing.Point(260, 70);
+            this.btnConsultaClie.Name = "btnConsultaClie";
+            this.btnConsultaClie.Size = new System.Drawing.Size(86, 25);
+            this.btnConsultaClie.TabIndex = 15;
+            this.btnConsultaClie.Text = "Consultar";
+            this.btnConsultaClie.UseVisualStyleBackColor = true;
+            this.btnConsultaClie.Click += new System.EventHandler(this.btnConsultaClie_Click);
+            // 
             // CompraVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -520,5 +556,8 @@ namespace Sistema_CB
         private System.Windows.Forms.Button btnCliente;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txt_BancoRef;
+        private System.Windows.Forms.TextBox txtCodigo;
+        private System.Windows.Forms.Button btn_Cstavendedor;
+        private System.Windows.Forms.Button btnConsultaClie;
     }
 }

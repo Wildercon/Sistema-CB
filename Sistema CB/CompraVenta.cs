@@ -45,16 +45,7 @@ namespace Sistema_CB
             cbEntrega.ValueMember = "idvendedor";
         }
 
-        private void CargarBauche()
-        {
-            dataGridVentas.DataSource = objCtrlBauche.CargarBauche();
-            dataGridVentas.Columns["idBauche"].Visible = false;
-            dataGridVentas.Columns["cliente"].Visible = false;
-            dataGridVentas.Columns["fecha"].Visible = false;
-            dataGridVentas.Columns["observaciones"].Visible = false;
-            dataGridVentas.Columns["codigo"].Width = 50;
-            dataGridVentas.Columns["monto"].Width = 70;
-        }
+
 
         private void CargarVendedores()
         {
@@ -65,7 +56,22 @@ namespace Sistema_CB
 
         private void BtnBauche_Click(object sender, EventArgs e)
         {
-            CargarBauche();
+            Bauche bau = new Bauche();
+            if(txtCodigo.Text == "")
+            {
+                MessageBox.Show("Introducir Codigo");
+                return;
+            }
+            bau.Codigo = Convert.ToInt32(txtCodigo.Text);
+            dataGridVentas.DataSource = objCtrlBauche.BuscarBauCodigo(bau);
+            dataGridVentas.Columns["idBauche"].Visible = false;
+            dataGridVentas.Columns["cliente"].Visible = false;
+            dataGridVentas.Columns["estado"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridVentas.Columns["observaciones"].Visible = false;
+            dataGridVentas.Columns["codigo"].Width = 50;
+            dataGridVentas.Columns["monto"].Width = 50;
+            dataGridVentas.Columns["Fecha"].Width = 72;
+
         }
 
         private void btnVendedores_Click(object sender, EventArgs e)
@@ -73,39 +79,51 @@ namespace Sistema_CB
             CargarVendedores();
         }
 
-        private void CargarVentas()
+        private void btnVentas_Click(object sender, EventArgs e)
         {
             dataGridVentas.DataSource = objCtrlBauche.CargarVentas();
             dataGridVentas.Columns["Monto"].Width = 55;
             dataGridVentas.Columns["Bauche"].Width = 55;
             dataGridVentas.Columns["Fecha"].Width = 75;
+            dataGridVentas.Columns["Op"].Width = 25;
+            dataGridVentas.Columns["Total"].Width = 55;
             dataGridVentas.Columns["Vendedor"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-        }
+            foreach (DataGridViewRow row in dataGridVentas.Rows)
+            {
+                if (row.Cells["op"].Value.ToString() == "-")
+                    row.DefaultCellStyle.BackColor = Color.FromArgb(229,50,50);
 
-        private void btnVentas_Click(object sender, EventArgs e)
-        {
-            CargarVentas();
+
+            }
         }
 
         private void btnAgregarVenta_Click(object sender, EventArgs e)
         {
+            
             Bauche bau = new Bauche();
-            bau.Codigo = Convert.ToInt32(txtBauche.Text);
+            bau.IdBauche = Convert.ToInt32(txtBauche.Text);
             bau.Idvendedor = Convert.ToInt32(cbVendedor.SelectedValue);
             bau.Monto = Convert.ToDouble(txtMonto.Text);
             bau.Fecha = fecha;
-            objCtrlBauche.AgregarVenta(bau);
+            bau.Estado = "+";
             objCtrlBauche.AumentarMontoVendedor(bau);
+            bau.Total = objCtrlBauche.ControlMontoV(bau);
+            objCtrlBauche.AgregarVenta(bau);
             CargarVendedores();
         }
 
         private void btnEntrega_Click(object sender, EventArgs e)
         {
             Bauche bau = new Bauche();
+            bau.Fecha = fecha;
             bau.Idcuenta = 1;
             bau.Monto = Convert.ToDouble(txtMontoEntrega.Text);
             bau.Idvendedor = Convert.ToInt32(cbEntrega.SelectedValue);
+            bau.Estado = "-";
+            bau.IdBauche = 1;
             objCtrlBauche.DisminuirMontoVendedor(bau);
+            bau.Total = objCtrlBauche.ControlMontoV(bau);
+            objCtrlBauche.AgregarVenta(bau);
             CargarVendedores();
             cbEntrega.SelectedIndex = -1;
             txtMontoEntrega.Text = "";
@@ -142,15 +160,17 @@ namespace Sistema_CB
             bau.Banco = txt_BancoRef.Text;
             bau.Fecha = fecha;
             bau.IdCliente = Convert.ToInt32(cbCliente.SelectedValue);
-            bau.Monto = Convert.ToDouble(txtMontoCompra.Text);
-            objCtrlBauche.AgregarCompra(bau);           
+            bau.Monto = Convert.ToDouble(txtMontoCompra.Text);                      
             if (checkPorCobrar.Checked)
             {
                 objCtrlBauche.AgregarCuentaXCobrar(bau);
+                bau.Estado = "Pendiente";
             }else
             {
                 objCtrlBauche.AumentarMontoBanco(bau);
+                bau.Estado = "Cancelado";
             }
+            objCtrlBauche.AgregarCompra(bau);
             CargarCuentaXCobrar();
         }
 
@@ -165,10 +185,14 @@ namespace Sistema_CB
         private void btnRecibir_Click(object sender, EventArgs e)
         {
             Bauche bau = new Bauche();
+            bau.Fecha = fecha;
             bau.Idcuenta = 1;
+            bau.Banco = "";
             bau.IdCliente = Convert.ToInt32(cbClientexCobrar.SelectedValue);
             bau.Monto = Convert.ToDouble(txtMontoxCobrar.Text);
+            bau.Estado = "Deuda";
             objCtrlBauche.DisminuirMontoCliente(bau);
+            objCtrlBauche.AgregarCompra(bau);
             CargarCuentaXCobrar();
             objCtrlBauche.AumentarMontoBanco(bau);
         }
@@ -183,8 +207,9 @@ namespace Sistema_CB
         private void btnMostrarCompras_Click(object sender, EventArgs e)
         {
             dataGridCompras.DataSource = objCtrlBauche.CargarCompras();
-            dataGridCompras.Columns["Monto"].Width = 50;
-            dataGridCompras.Columns["Fecha"].Width = 67;
+            dataGridCompras.Columns["Monto"].Width = 47;
+            dataGridCompras.Columns["Fecha"].Width = 70;
+            dataGridCompras.Columns["Operacion"].Width = 75;
             dataGridCompras.Columns["Ref"].Width = 80;
             dataGridCompras.Columns["cliente"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; 
         }
@@ -201,5 +226,44 @@ namespace Sistema_CB
             ListarClientes();
         }
 
+        private void dataGridVentas_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtBauche.Text = dataGridVentas.CurrentRow.Cells["idBauche"].Value.ToString();
+        }
+
+        private void btn_Cstavendedor_Click(object sender, EventArgs e)
+        {
+            Bauche bau = new Bauche();
+            bau.Idvendedor = Convert.ToInt32(cbVendedor.SelectedValue);
+            dataGridVentas.DataSource = objCtrlBauche.CargarDetalleVendedor(bau);
+            dataGridVentas.Columns["Monto"].Width = 55;
+            dataGridVentas.Columns["Bauche"].Width = 55;
+            dataGridVentas.Columns["Fecha"].Width = 75;
+            dataGridVentas.Columns["Op"].Width = 25;
+            dataGridVentas.Columns["Total"].Width = 55;
+            dataGridVentas.Columns["Vendedor"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            foreach (DataGridViewRow row in dataGridVentas.Rows)
+            {
+                if (row.Cells["op"].Value.ToString() == "-")
+                    row.DefaultCellStyle.BackColor = Color.FromArgb(229, 50, 50);
+            }
+        }
+
+        private void btnConsultaClie_Click(object sender, EventArgs e)
+        {
+            Bauche bau = new Bauche();
+            bau.IdCliente = Convert.ToInt32(cbCliente.SelectedValue);
+            dataGridCompras.DataSource = objCtrlBauche.DetalleCompraCliente(bau);
+            dataGridCompras.Columns["Monto"].Width = 47;
+            dataGridCompras.Columns["Fecha"].Width = 70;
+            dataGridCompras.Columns["Operacion"].Width = 75;
+            dataGridCompras.Columns["Ref"].Width = 80;
+            dataGridCompras.Columns["cliente"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            foreach (DataGridViewRow row in dataGridCompras.Rows)
+            {
+                if (row.Cells["Operacion"].Value.ToString() == "Pendiente")
+                    row.DefaultCellStyle.BackColor = Color.FromArgb(229, 50, 50);
+            }
+        }
     }
 }
