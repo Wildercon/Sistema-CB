@@ -238,6 +238,32 @@ namespace Sistema_CB
             
         }
 
+        public void VerificarBaucheVentaD(Bauche dato)
+        {
+            try
+            {
+                comando.Connection = conexionBD.abrirconexion();
+                comando.CommandText = "VerificarBaucheVentaD";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("idbauche", dato.IdBauche);
+                LeerFilas = comando.ExecuteReader();
+                if (LeerFilas.Read() == true)
+                {
+                    mensaje = LeerFilas[0].ToString();
+                    MessageBox.Show("Bauche Utilizado Por Vendedor" + mensaje);
+                }
+
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+            LeerFilas.Close();
+            comando.Parameters.Clear();
+            conexionBD.cerrarConexion();
+
+        }
+
         public void VerificarClienteCredito(int dato)
         {
             try

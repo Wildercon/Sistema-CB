@@ -218,6 +218,7 @@ namespace Sistema_CB
         {
             if (dataGridBauche.SelectedRows.Count > 0)
             {
+
                 operacion = "Editar";
                 lbIdFactura.Text = dataGridBauche.CurrentRow.Cells["idBauche"].Value.ToString();
                 txtCodigo.Text = dataGridBauche.CurrentRow.Cells["codigo"].Value.ToString();
@@ -231,6 +232,9 @@ namespace Sistema_CB
                 txtFecha.Enabled = false;
                 txtMonto.Enabled = false;
                 lblBauche.Text = txtMonto.Text;
+                Bauche bau = new Bauche();
+                bau.IdBauche = Convert.ToInt32(lbIdFactura.Text);
+                objCtrlBauche.VerificarBaucheVentaD(bau);
                 CargarProductos();
                 calcularFactura();                             
             }
