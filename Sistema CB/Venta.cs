@@ -290,6 +290,11 @@ namespace Sistema_CB
                     AgregarCausa Acausa = new AgregarCausa();
                     Acausa.ShowDialog();
                 }
+                else if (idproducto == 9)
+                {
+                    AgregarCausa Acausa = new AgregarCausa();
+                    Acausa.ShowDialog();
+                }
                 if (idproducto == 7)
                 {
                     bau.Idcuenta = 1;
