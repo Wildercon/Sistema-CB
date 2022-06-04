@@ -693,7 +693,7 @@ namespace Sistema_CB
             // 
             // baucheBindingSource
             // 
-            this.baucheBindingSource.DataSource = typeof(Sistema_CB.Bauche);
+//            this.baucheBindingSource.DataSource = typeof(Sistema_CB.Bauche);
             // 
             // Venta
             // 
