@@ -1,4 +1,6 @@
 ﻿
+using CapaDatos;
+using CapaEntidad;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +16,11 @@ namespace Sistema_CB
     public partial class Venta : Form
     {
         CtrlBauche objCtrlBauche = new CtrlBauche();
+        CD_Cliente objCliente = new CD_Cliente();
+        CD_Factura objFactura = new CD_Factura();
+        CD_Datos objDatos = new CD_Datos();
+        CD_Producto objProducto = new CD_Producto();
+
         string operacion = "Insertar";
         public Venta()
         {
@@ -51,42 +58,44 @@ namespace Sistema_CB
 
         private void CargarProductos()
         {
-            Bauche bau = new Bauche();
-            bau.IdBauche = Convert.ToInt32(lbIdFactura.Text);
-            dataGridProductos.DataSource = objCtrlBauche.CargarProductos(bau);
+            Factura oFactura = new Factura() { bauche = new Bauche() { Idbauche= Convert.ToInt32(lbIdFactura.Text) } };
+            dataGridProductos.DataSource = objFactura.CargarProductos(oFactura);
             dataGridProductos.Columns["idfactura"].Visible = false;
             dataGridProductos.Columns["cantidad"].Width = 80;
             dataGridProductos.Columns["producto"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
+            Bauche oBauche = new Bauche();
             if (rdbCodigo.Checked)
             {               
-                bau.Codigo = Convert.ToInt32(txtBuscar.Text);
-                dataGridBauche.DataSource = objCtrlBauche.BuscarBauCodigo(bau);
+                oBauche.Codigo = Convert.ToInt32(txtBuscar.Text);
+                dataGridBauche.DataSource = objCtrlBauche.BuscarBauCodigo(oBauche);
             }else if (rdbCliente.Checked)
             {
-                bau.Cliente = txtBuscar.Text;
-                dataGridBauche.DataSource = objCtrlBauche.BuscarBauCliente(bau);
+                oBauche.cliente.NombreCliente = txtBuscar.Text;
+                dataGridBauche.DataSource = objCtrlBauche.BuscarBauCliente(oBauche);
             }else if (rdbMonto.Checked)
             {
-                bau.Monto = Convert.ToDouble(txtBuscar.Text);
-                dataGridBauche.DataSource = objCtrlBauche.BuscarBauMonto(bau);
+                oBauche.Monto = Convert.ToDouble(txtBuscar.Text);
+                dataGridBauche.DataSource = objCtrlBauche.BuscarBauMonto(oBauche);
             }
            
         }
 
         private void bntGuardar_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
-            bau.Codigo = Convert.ToInt32(txtCodigo.Text);
-            bau.Fecha = txtFecha.Text;
-            bau.Monto = Convert.ToDouble(txtMonto.Text);
-            bau.Idcuenta =Convert.ToInt32(cbBanco.SelectedValue);
-            bau.IdCliente = Convert.ToInt32(cbCliente.SelectedValue);
-            bau.Estado = cbEstado.Text;
-            bau.Observaciones = txtObervaciones.Text;           
+            Bauche oBauche = new Bauche()
+            {
+                Codigo = Convert.ToInt32(txtCodigo.Text),
+                Fecha = txtFecha.Text,
+                Monto = Convert.ToDouble(txtMonto.Text),
+                Banco = Convert.ToInt32(cbBanco.SelectedValue),
+                cliente = new Cliente(){ Id =Convert.ToInt32(cbCliente.SelectedValue) },
+                Estado = cbEstado.Text,
+                Observacion = txtObervaciones.Text
+            };
+                      
             if (operacion == "Insertar")
             {   
                 if(cbCliente.SelectedValue == null)
@@ -96,12 +105,12 @@ namespace Sistema_CB
                     if (resultado == DialogResult.OK)
                     {
                         btnCliente_Click(sender, e);
-                        bau.IdCliente = Convert.ToInt32(cbCliente.SelectedValue);
+                        oBauche.cliente.Id = Convert.ToInt32(cbCliente.SelectedValue);
                     }
                 }              
                 
-                objCtrlBauche.AgregarBauche(bau);
-                objCtrlBauche.AumentarMontoBanco(bau);
+                objCtrlBauche.AgregarBauche(oBauche);
+                //objCtrlBauche.AumentarMontoBanco(oBauche);
                                
             }
             else if (operacion == "Editar")
@@ -113,11 +122,11 @@ namespace Sistema_CB
                     if (resultado == DialogResult.OK)
                     {
                         btnCliente_Click(sender, e);
-                        bau.IdCliente = Convert.ToInt32(cbCliente.SelectedValue);
+                        oBauche.cliente.Id = Convert.ToInt32(cbCliente.SelectedValue);
                     }
                 }
-                bau.IdBauche = Convert.ToInt32(lbIdFactura.Text);
-                objCtrlBauche.EditarBauche(bau);
+                oBauche.Idbauche = Convert.ToInt32(lbIdFactura.Text);
+                objCtrlBauche.EditarBauche(oBauche);
                 operacion = "Insertar";
                 txtCodigo.Enabled = true;
                 txtFecha.Enabled = true;
@@ -161,8 +170,8 @@ namespace Sistema_CB
 
         private void ListarClientes()
         {
-            CtrlBauche objCtrl = new CtrlBauche();
-            cbCliente.DataSource = objCtrl.ListarCliente();
+            
+            cbCliente.DataSource = objCliente.ListarCliente();
             cbCliente.DisplayMember = "cliente";
             cbCliente.ValueMember = "id";
         }
@@ -176,7 +185,7 @@ namespace Sistema_CB
 
         private void ListarProductos()
         {
-            cbProducto.DataSource = objCtrlBauche.ListarProductos();
+            cbProducto.DataSource = objProducto.ListarProductos();
             cbProducto.DisplayMember = "producto";
             cbProducto.ValueMember = "idproducto";
         }
@@ -185,7 +194,7 @@ namespace Sistema_CB
         {
             CtrlBauche objCtrl = new CtrlBauche();
             DataTable tabla = new DataTable();
-            tabla = objCtrl.ListarProductos();
+            tabla = objProducto.ListarProductos();
             AutoCompleteStringCollection dato = new AutoCompleteStringCollection();
 
             for (int i = 0; i < tabla.Rows.Count; i++)
@@ -200,9 +209,8 @@ namespace Sistema_CB
 
         private AutoCompleteStringCollection AutoListarClientes()
         {
-            CtrlBauche objCtrl = new CtrlBauche();
             DataTable tabla = new DataTable();
-            tabla = objCtrl.ListarCliente();
+            tabla = objCliente.ListarCliente();
             AutoCompleteStringCollection dato = new AutoCompleteStringCollection();
 
             for (int i = 0; i < tabla.Rows.Count; i++)
@@ -232,9 +240,11 @@ namespace Sistema_CB
                 txtFecha.Enabled = false;
                 txtMonto.Enabled = false;
                 lblBauche.Text = txtMonto.Text;
-                Bauche bau = new Bauche();
-                bau.IdBauche = Convert.ToInt32(lbIdFactura.Text);
-                objCtrlBauche.VerificarBaucheVentaD(bau);
+                Bauche oBauche = new Bauche()
+                {
+                    Idbauche = Convert.ToInt32(lbIdFactura.Text)
+                };
+                objCtrlBauche.VerificarBaucheVentaD(oBauche);
                 CargarProductos();
                 calcularFactura();                             
             }
@@ -253,12 +263,14 @@ namespace Sistema_CB
 
         private void btnCliente_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
+            Cliente oCliente = new Cliente()
+            {
+                NombreCliente = cbCliente.Text,
+                Direccion = txtDireccion.Text
+            };
             string dato;
-            bau.Cliente = cbCliente.Text;
             dato = cbCliente.Text;
-            bau.Direccion = txtDireccion.Text;
-            objCtrlBauche.AgregarCliente(bau);
+            objCliente.AgregarCliente(oCliente);
             ListarClientes();
             cbCliente.Text = dato;
         }
@@ -268,11 +280,15 @@ namespace Sistema_CB
             if (operacion == "Editar")
             {
                 int idproducto = Convert.ToInt32(cbProducto.SelectedValue);
-                Bauche bau = new Bauche();
-                bau.IdBauche = Convert.ToInt32(lbIdFactura.Text);
-                bau.IdProducto = Convert.ToInt32(cbProducto.SelectedValue);
-                bau.Cantidad = Convert.ToDouble(txtCantProd.Text);
-                objCtrlBauche.AgregarProFactura(bau);
+                Factura oFactura = new Factura()
+                {
+                    bauche = new Bauche() { Idbauche = Convert.ToInt32(lbIdFactura.Text) },
+                    producto = new Producto() { Idproducto = Convert.ToInt32(cbProducto.SelectedValue) } ,
+                    Cantidad = Convert.ToDouble(txtCantProd.Text)
+                };
+                
+                
+                objFactura.AgregarProFactura(oFactura);
                 CargarProductos();
                 calcularFactura();
                 if (idproducto == 4)
@@ -297,9 +313,9 @@ namespace Sistema_CB
                 }
                 if (idproducto == 7)
                 {
-                    bau.Idcuenta = 1;
+                    /*bau.Idcuenta = 1;
                     bau.Monto = Convert.ToDouble(txtCantProd.Text);
-                    objCtrlBauche.DisminuirMontoBanco(bau);
+                    objCtrlBauche.DisminuirMontoBanco(bau);*/
                 }
             }else
             {
@@ -418,17 +434,18 @@ namespace Sistema_CB
                 
                 if (operacion == "Editar")
                 {
-                    Bauche bau = new Bauche();
-                    bau.Codigo = Convert.ToInt32(txtCodigo.Text);
-                    bau.Fecha = txtFecha.Text;
-                    bau.Monto = Convert.ToDouble(txtMonto.Text);
-                    bau.Idcuenta = Convert.ToInt32(cbBanco.SelectedValue);
-                    bau.IdCliente = Convert.ToInt32(cbCliente.SelectedValue);
-                    bau.Estado = cbEstado.Text;
-                    bau.Observaciones = txtObervaciones.Text;
-                    
-                    bau.IdBauche = Convert.ToInt32(lbIdFactura.Text);
-                    objCtrlBauche.EditarBauche(bau);
+                    Bauche oBauche = new Bauche()
+                    {
+                        Codigo = Convert.ToInt32(txtCodigo.Text),
+                        Fecha = txtFecha.Text,
+                        Monto = Convert.ToDouble(txtMonto.Text),
+                        Banco = Convert.ToInt32(cbBanco.SelectedValue),
+                        cliente = new Cliente() { Id= Convert.ToInt32(cbCliente.SelectedValue) },
+                        Estado = cbEstado.Text,
+                        Observacion = txtObervaciones.Text,
+                        Idbauche = Convert.ToInt32(lbIdFactura.Text)
+                    };
+                    objCtrlBauche.EditarBauche(oBauche);
 
                 }
             }
@@ -439,17 +456,15 @@ namespace Sistema_CB
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
-                Bauche bau = new Bauche();
-                bau.Preciodolar = Convert.ToDouble(txtPrecioDolar.Text);
-                objCtrlBauche.CambiarPrecioDolar(bau);
+                Datos oDatos = new Datos() { PrecioDolar = Convert.ToDouble(txtPrecioDolar.Text) };
+                objDatos.CambiarPrecioDolar(oDatos);
             }
         }
 
         private void btnEstado_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
-            bau.Estado = cbEstado.Text;
-            dataGridBauche.DataSource = objCtrlBauche.BuscarBauEstado(bau);
+            Bauche oBauche = new Bauche() { Estado = cbEstado.Text };
+            dataGridBauche.DataSource = objCtrlBauche.BuscarBauEstado(oBauche);
         }
 
         private void btnEliminarPro_Click(object sender, EventArgs e)
@@ -460,20 +475,14 @@ namespace Sistema_CB
 
                 if (resultado == DialogResult.OK)
                 {
-                    Bauche bau = new Bauche();
-                    bau.IdFactura1 = Convert.ToInt32(dataGridProductos.CurrentRow.Cells[0].Value);
-                    objCtrlBauche.BorrarProFactura(bau);
+                    Factura oFactura = new Factura() {Idfactura = Convert.ToInt32(dataGridProductos.CurrentRow.Cells[0].Value) };
+                    objFactura.BorrarProFactura(oFactura);
                     CargarProductos();
                     calcularFactura();
                 }
                
             }
            
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void txtCantProd_KeyPress(object sender, KeyPressEventArgs e)
@@ -484,10 +493,7 @@ namespace Sistema_CB
             }
         }
 
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
 
-        }
     }   
 
 }

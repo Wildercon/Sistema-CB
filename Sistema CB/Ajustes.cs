@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CapaDatos;
+using CapaEntidad;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +15,9 @@ namespace Sistema_CB
     public partial class Ajustes : Form
     {
         CtrlBauche objCtrlBauche = new CtrlBauche();
+        CD_Producto objProducto = new CD_Producto();
+        CD_Vendedor objVendedor = new CD_Vendedor();
+        CD_Cuentas objCuentas = new CD_Cuentas();
         public Ajustes()
         {
             InitializeComponent();
@@ -33,19 +38,23 @@ namespace Sistema_CB
         {
             if (cbProducto.SelectedIndex >= 0)
             {
-                Bauche bau = new Bauche();
-                bau.IdProducto = Convert.ToInt32(cbProducto.SelectedValue);
-                bau.PrecioProducto1 = Convert.ToDouble(txtPrecio.Text);
-                objCtrlBauche.EditarProducto(bau);
+                Producto oProducto = new Producto()
+                {
+                    Idproducto = Convert.ToInt32(cbProducto.SelectedValue),
+                    Precio = Convert.ToDouble(txtPrecio.Text)
+                };
+                objProducto.EditarProducto(oProducto);
                 MessageBox.Show("Se Edito Correctamente");
 
             }
             else
             {
-                Bauche bau = new Bauche();
-                bau.Producto1 = cbProducto.Text;
-                bau.PrecioProducto1 = Convert.ToDouble(txtPrecio.Text);
-                objCtrlBauche.AgregarProducto(bau);
+                Producto oProducto = new Producto()
+                {
+                    producto = cbProducto.Text,
+                    Precio = Convert.ToDouble(txtPrecio.Text)
+                };
+                objProducto.AgregarProducto(oProducto);
                 MessageBox.Show("Registro Exitoso");
             }
             ListarProductos();
@@ -53,7 +62,7 @@ namespace Sistema_CB
 
         private void ListarProductos()
         {
-            cbProducto.DataSource = objCtrlBauche.ListarProductos();
+            cbProducto.DataSource = objProducto.ListarProductos();
             cbProducto.DisplayMember = "producto";
             cbProducto.ValueMember = "idproducto";
         }
@@ -73,17 +82,15 @@ namespace Sistema_CB
 
         private void btnEliminarVendedor_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
-            bau.Idvendedor = Convert.ToInt32(cbVendedor.SelectedValue);
-            objCtrlBauche.EliminarVendedor(bau);
+            Vendedor oVendedor = new Vendedor() { Idvendedor = Convert.ToInt32(cbVendedor.SelectedValue) };
+            objVendedor.EliminarVendedor(oVendedor);
             ListarVendedores();
         }
 
         private void btnEliminarProducto_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
-            bau.IdProducto = Convert.ToInt32(cbProducto.SelectedValue);
-            objCtrlBauche.EliminarProducto(bau);
+            Producto oProducto = new Producto() { Idproducto = Convert.ToInt32(cbProducto.SelectedValue) };
+            objProducto.EliminarProducto(oProducto);
             ListarProductos();
         }
 
@@ -91,41 +98,47 @@ namespace Sistema_CB
         {
             if(cbVendedor.SelectedIndex >= 0)
             {
-                Bauche bau = new Bauche();
-                bau.Idvendedor = Convert.ToInt32(cbVendedor.SelectedValue);
-                bau.Montovendedor = Convert.ToDouble(txtMontoVendedor.Text);
-                objCtrlBauche.EditarMontoVendedor(bau);
+                Vendedor oVendedor = new Vendedor()
+                {
+                    Idvendedor = Convert.ToInt32(cbVendedor.SelectedValue),
+                    Monto = Convert.ToDouble(txtMontoVendedor.Text)
+                };
+                objVendedor.EditarMontoVendedor(oVendedor);
             }
             else
             {
-                Bauche bau = new Bauche();
-                bau.Vendedor = cbVendedor.Text;
-                bau.Montovendedor = Convert.ToDouble(txtMontoVendedor.Text);
-                objCtrlBauche.AgregarVendedor(bau);
+                Vendedor oVendedor = new Vendedor()
+                {
+                    vendedor = cbVendedor.Text,
+                    Monto = Convert.ToDouble(txtMontoVendedor.Text)
+                };
+                objVendedor.AgregarVendedor(oVendedor);
             }
             ListarVendedores();
         }
 
         private void ListarVendedores()
         {
-            cbVendedor.DataSource = objCtrlBauche.ListarVendedores();
+            cbVendedor.DataSource = objVendedor.ListarVendedores();
             cbVendedor.DisplayMember = "Vendedor";
             cbVendedor.ValueMember = "idvendedor";
         }
 
         private void btnGuardarCuenta_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
-            bau.Idcuenta = Convert.ToInt32(cbCuentas.SelectedValue);
-            bau.Monto = Convert.ToDouble(txtMontoCuenta.Text);
-            bau.Banco = cbCuentas.Text;
+            CapaEntidad.Cuentas oCuentas = new CapaEntidad.Cuentas()
+            {
+                Idcuenta = Convert.ToInt32(cbCuentas.SelectedValue),
+                Monto = Convert.ToDouble(txtMontoCuenta.Text),
+                Banco = cbCuentas.Text
+            };
             if (cbCuentas.SelectedIndex >= 0)
             {
-                objCtrlBauche.EditarCuenta(bau);
+                objCuentas.EditarCuenta(oCuentas);
             }
             else
             {
-                objCtrlBauche.AgregarCuenta(bau);
+                objCuentas.AgregarCuenta(oCuentas);
             }
             ListarCuentas();
         }
@@ -139,9 +152,8 @@ namespace Sistema_CB
 
         private void btnEliminarCuenta_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
-            bau.Idcuenta = Convert.ToInt32(cbCuentas.SelectedValue);
-            objCtrlBauche.EliminarCuenta(bau);
+            CapaEntidad.Cuentas oCuentas = new CapaEntidad.Cuentas() { Idcuenta = Convert.ToInt32(cbCuentas.SelectedValue) };
+            objCuentas.EliminarCuenta(oCuentas);
             ListarCuentas();
         }
     }  

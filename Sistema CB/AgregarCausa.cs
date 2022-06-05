@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using CapaDatos;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,12 +9,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CapaEntidad;
 
 namespace Sistema_CB
 {
     public partial class AgregarCausa : Form
     {
         CtrlBauche objCtrlBauche = new CtrlBauche();
+        CD_Cliente objCliente = new CD_Cliente();
+        CD_Causa objCausa = new CD_Causa();
+
+        
         public AgregarCausa()
         {
             InitializeComponent();
@@ -30,7 +36,7 @@ namespace Sistema_CB
 
         private void ListarClientes()
         {
-            cbCliente.DataSource = objCtrlBauche.ListarCliente();
+            cbCliente.DataSource = objCliente.ListarCliente();
             cbCliente.DisplayMember = "cliente";
             cbCliente.ValueMember = "id";
 
@@ -38,7 +44,7 @@ namespace Sistema_CB
 
         private void ListarGrupo()
         {
-            cbGrupo.DataSource = objCtrlBauche.ListarGrupoC();
+            cbGrupo.DataSource = objCausa.ListarGrupoC();
             cbGrupo.DisplayMember = "Grupo";
             cbGrupo.ValueMember = "id";
 
@@ -46,7 +52,7 @@ namespace Sistema_CB
         private AutoCompleteStringCollection AutoListarClientes()
         {
             DataTable tabla = new DataTable();
-            tabla = objCtrlBauche.ListarCliente();
+            tabla = objCliente.ListarCliente();
             AutoCompleteStringCollection dato = new AutoCompleteStringCollection();
 
             for (int i = 0; i < tabla.Rows.Count; i++)
@@ -59,26 +65,33 @@ namespace Sistema_CB
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
-        {
-            Bauche bau = new Bauche();           
+        {            
             if (cbCliente.SelectedValue == null)
             {
                 DialogResult resultado = MessageBox.Show( "Registrar Cliente?", "Cliente No Esta Registrado", MessageBoxButtons.OKCancel);
 
                 if (resultado == DialogResult.OK)
                 {
-                    bau.Direccion = txtDireccion.Text;
-                    bau.Cliente = cbCliente.Text;
+                    Cliente oCliente = new Cliente()
+                    {
+                        Direccion = txtDireccion.Text,
+                        NombreCliente = cbCliente.Text
+                    };
+                    
+                    
                     string dato = cbCliente.Text;
-                    objCtrlBauche.AgregarCliente(bau);
+                    objCliente.AgregarCliente(oCliente);
                     ListarClientes();
                     cbCliente.Text = dato;
                 }
             }
-            bau.Grupo = Convert.ToInt32(cbGrupo.SelectedValue);
-            bau.IdCliente = Convert.ToInt32(cbCliente.SelectedValue);
-            bau.Observaciones = txtObservaciones.Text;
-            objCtrlBauche.AgregarCausa(bau);
+            CapaEntidad.Causa oCausa = new CapaEntidad.Causa()
+            {
+                Idcliente = Convert.ToInt32(cbCliente.SelectedValue),
+                Grupo = Convert.ToInt32(cbGrupo.SelectedValue),
+                Observacion = txtObservaciones.Text
+            };
+            objCausa.AgregarCausa(oCausa);
             cbCliente.SelectedValue = -1;
             txtObservaciones.Text = "";
             txtDireccion.Text = "";
@@ -118,10 +131,13 @@ namespace Sistema_CB
         {
             if(cbGrupo.SelectedIndex > 0)
             {
-                Bauche bau = new Bauche();
-                bau.Grupo = Convert.ToInt32(cbGrupo.SelectedValue);
-                int CantGrupo = objCtrlBauche.ContarGrupoCausa(bau);
+                CapaEntidad.Causa oCausa = new CapaEntidad.Causa()
+                {
+                    Grupo = Convert.ToInt32(cbGrupo.SelectedValue)
+                }; 
+                int CantGrupo = objCausa.ContarGrupoCausa(oCausa);
                 lblCantGrupo.Text = CantGrupo.ToString();
+               
             }
             
         }

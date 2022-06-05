@@ -380,7 +380,6 @@ namespace Sistema_CB
             this.btnHecha.TabIndex = 20;
             this.btnHecha.Text = "Guardar";
             this.btnHecha.UseVisualStyleBackColor = true;
-            this.btnHecha.Click += new System.EventHandler(this.btnHecha_Click);
             // 
             // label8
             // 

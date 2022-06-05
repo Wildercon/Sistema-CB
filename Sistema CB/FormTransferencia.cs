@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CapaDatos;
+using CapaEntidad;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +15,8 @@ namespace Sistema_CB
     public partial class FormTransferencia : Form
     {
         CtrlBauche ObjCtrlBauche = new CtrlBauche();
+        CD_Transferencia objTransferencia = new CD_Transferencia();
+        CD_Cliente objCliente = new CD_Cliente();
         string operacion = "Insertar";
         public FormTransferencia()
         {
@@ -40,28 +44,31 @@ namespace Sistema_CB
 
         private void CargarTransferencia()
         {
-            dataGridTransferencia.DataSource = ObjCtrlBauche.CargarTransferencia();
+            dataGridTransferencia.DataSource = objTransferencia.CargarTransferencia();
         }
            
         private void bntGuardar_Click(object sender, EventArgs e)
         {
             
-            Bauche bau = new Bauche();
-            bau.Fecha = lblFecha.Text;
-            bau.Beneficiario = txtBeneficiario.Text;
-            bau.Cuenta = txtCuenta.Text;
-            bau.Cedula = Convert.ToInt32(txtCedula.Text);
-            bau.Banco = txtBanco.Text;
-            bau.Monto = Convert.ToDouble(txtMonto.Text);
-            bau.IdCliente = Convert.ToInt32(cbCliente.SelectedValue);
-            bau.Referencia = txtReferencia.Text;           
+            Transferencia oTransferencia = new Transferencia()
+            {
+                Fecha = lblFecha.Text,
+                Beneficiario = txtBeneficiario.Text,
+                Cuenta = txtCuenta.Text,
+                Cedula = Convert.ToInt32(txtCedula.Text),
+                Banco = txtBanco.Text,
+                Monto = Convert.ToDouble(txtMonto.Text),
+                Cliente = new Cliente() { Id = Convert.ToInt32(cbCliente.SelectedValue) },
+                Referencia = txtReferencia.Text
+            };
+                       
             if (operacion =="Insertar")
             {
-                ObjCtrlBauche.AgregarTransferencia(bau);
+                objTransferencia.AgregarTransferencia(oTransferencia);
             }else if(operacion == "Editar")
             {
-                bau.Idtransferencia = Convert.ToInt32(dataGridTransferencia.CurrentRow.Cells[0].Value.ToString());
-                ObjCtrlBauche.EditarTransferencia(bau);
+                oTransferencia.Idtransferencia = Convert.ToInt32(dataGridTransferencia.CurrentRow.Cells[0].Value.ToString());
+                objTransferencia.EditarTransferencia(oTransferencia);
             }
             
             CargarTransferencia();
@@ -71,7 +78,7 @@ namespace Sistema_CB
 
         private void listarCliente()
         {
-            cbCliente.DataSource = ObjCtrlBauche.ListarCliente();
+            cbCliente.DataSource = objCliente.ListarCliente();
             cbCliente.DisplayMember = "cliente";
             cbCliente.ValueMember = "id";
         }
@@ -109,9 +116,8 @@ namespace Sistema_CB
 
         private void bntBuscar_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
-            bau.Idtxt = txtBuscar.Text;
-            dataGridTransferencia.DataSource = ObjCtrlBauche.BuscarTransferencia(bau);
+            Transferencia oTranferencia = new Transferencia() { Beneficiario = txtBuscar.Text };
+            dataGridTransferencia.DataSource = objTransferencia.BuscarTransferencia(oTranferencia);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -126,14 +132,14 @@ namespace Sistema_CB
             cbCuenta.ValueMember = "idcuenta";
         }
 
-        private void btnHecha_Click(object sender, EventArgs e)
+        /*private void btnHecha_Click(object sender, EventArgs e)
         {
             Bauche bau = new Bauche();
             bau.Monto = Convert.ToDouble(txtMonto.Text);
             bau.Idcuenta = Convert.ToInt32(cbCuenta.SelectedValue);
             bntGuardar_Click(sender, e);
             ObjCtrlBauche.DisminuirMontoBanco(bau);
-        }
+        }*/
 
         private void btnCliente_Click(object sender, EventArgs e)
         {
@@ -145,7 +151,7 @@ namespace Sistema_CB
         {
             CtrlBauche objCtrl = new CtrlBauche();
             DataTable tabla = new DataTable();
-            tabla = objCtrl.ListarCliente();
+            tabla = objCliente.ListarCliente();
             AutoCompleteStringCollection dato = new AutoCompleteStringCollection();
 
             for (int i = 0; i < tabla.Rows.Count; i++)

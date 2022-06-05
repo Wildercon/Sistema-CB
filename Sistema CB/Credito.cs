@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CapaDatos;
+using CapaEntidad;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +15,9 @@ namespace Sistema_CB
     public partial class Credito : Form
     {
         CtrlBauche objCtrl = new CtrlBauche();
+        CD_Cliente objCliente = new CD_Cliente();
+        CD_Credito objCredito = new CD_Credito();
+        CD_Producto objProducto = new CD_Producto();
         string fecha = DateTime.Now.ToShortDateString();
         public Credito()
         {
@@ -31,15 +36,15 @@ namespace Sistema_CB
 
         private void ListarClientes()
         {
-            CtrlBauche objCtrl = new CtrlBauche();
-            cbCliente.DataSource = objCtrl.ListarCliente();
+            
+            cbCliente.DataSource = objCliente.ListarCliente();
             cbCliente.DisplayMember = "cliente";
             cbCliente.ValueMember = "id";
         }
 
         private void ListarProducto()
         {
-            cbProducto.DataSource = objCtrl.ListarProductos();
+            cbProducto.DataSource = objProducto.ListarProductos();
             cbProducto.DisplayMember = "producto";
             cbProducto.ValueMember = "idproducto";
         }
@@ -48,7 +53,7 @@ namespace Sistema_CB
         {
             CtrlBauche objCtrl = new CtrlBauche();
             DataTable tabla = new DataTable();
-            tabla = objCtrl.ListarProductos();
+            tabla = objProducto.ListarProductos();
             AutoCompleteStringCollection dato = new AutoCompleteStringCollection();
 
             for (int i = 0; i < tabla.Rows.Count; i++)
@@ -63,7 +68,7 @@ namespace Sistema_CB
         {
             CtrlBauche objCtrl = new CtrlBauche();
             DataTable tabla = new DataTable();
-            tabla = objCtrl.ListarCliente();
+            tabla = objCliente.ListarCliente();
             AutoCompleteStringCollection dato = new AutoCompleteStringCollection();
 
             for (int i = 0; i < tabla.Rows.Count; i++)
@@ -77,9 +82,8 @@ namespace Sistema_CB
 
         private void CargarProCre()
         {
-            Bauche bau = new Bauche();
-            bau.IdCliente = Convert.ToInt32(cbCliente.SelectedValue);
-            dataGridProductos.DataSource = objCtrl.CargarProCre(bau);
+            CapaEntidad.Credito oCredito = new CapaEntidad.Credito(){ Cliente = new Cliente(){Id = Convert.ToInt32(cbCliente.SelectedValue) } };
+            dataGridProductos.DataSource = objCredito.CargarProCre(oCredito);
             dataGridProductos.Columns["idcredito"].Visible = false;
             dataGridProductos.Columns["Fecha"].Width = 70;
             dataGridProductos.Columns["cantidad"].Width = 70;
@@ -104,12 +108,14 @@ namespace Sistema_CB
 
         private void bntAgregarP_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
-            bau.Fecha = fecha;
-            bau.IdCliente = Convert.ToInt32(cbCliente.SelectedValue);
-            bau.IdProducto = Convert.ToInt32(cbProducto.SelectedValue);
-            bau.Cantidad = Convert.ToDouble(txtCantProd.Text);
-            objCtrl.AgregarProCre(bau);
+            CapaEntidad.Credito oCredito = new CapaEntidad.Credito()
+            {
+                Fecha = fecha,
+                Cliente = new Cliente() { Id = Convert.ToInt32(cbCliente.SelectedValue) },
+                Producto = new Producto() { Idproducto = Convert.ToInt32(cbProducto.SelectedValue) },
+                Cantidad = Convert.ToDouble(txtCantProd.Text)
+            };
+            objCredito.AgregarProCre(oCredito);
             CargarProCre();
             txtCantProd.Text = "1";
             CargarDeudores();
@@ -136,15 +142,12 @@ namespace Sistema_CB
         {
             if (dataGridProductos.SelectedRows.Count > 0)
             {
-                Bauche bau = new Bauche();
-                bau.IdFactura1 = Convert.ToInt32(dataGridProductos.CurrentRow.Cells[0].Value);
-                objCtrl.QuitarProCre(bau);
+                CapaEntidad.Credito oCredito = new CapaEntidad.Credito() { Idcredito = Convert.ToInt32(dataGridProductos.CurrentRow.Cells[0].Value) };
+                objCredito.QuitarProCre(oCredito);
                 CargarProCre();
             }
         }
 
-    
 
-      
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CapaDatos;
+using CapaEntidad;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +17,11 @@ namespace Sistema_CB
         string fecha = DateTime.Now.ToShortDateString();
 
         CtrlBauche objCtrlBauche = new CtrlBauche();
+        CD_Vendedor objVendedor = new CD_Vendedor();
+        CD_Venta objVenta = new CD_Venta();
+        CD_Cliente objCliente = new CD_Cliente();
+        CD_Pendientexcobrar objPenxcobrar = new CD_Pendientexcobrar();
+        CD_Compra objCompra = new CD_Compra();
         public CompraVenta()
         {
             InitializeComponent();
@@ -37,10 +44,10 @@ namespace Sistema_CB
 
         private void ListarVendedores()
         {
-            cbVendedor.DataSource = objCtrlBauche.ListarVendedores();
+            cbVendedor.DataSource = objVendedor.ListarVendedores();
             cbVendedor.DisplayMember = "Vendedor";
             cbVendedor.ValueMember = "idvendedor";
-            cbEntrega.DataSource = objCtrlBauche.ListarVendedores();
+            cbEntrega.DataSource = objVendedor.ListarVendedores();
             cbEntrega.DisplayMember = "Vendedor";
             cbEntrega.ValueMember = "idvendedor";
         }
@@ -49,7 +56,7 @@ namespace Sistema_CB
 
         private void CargarVendedores()
         {
-            dataGridVentas.DataSource = objCtrlBauche.ListarVendedores();
+            dataGridVentas.DataSource = objVendedor.ListarVendedores();
             dataGridVentas.Columns["idvendedor"].Visible = false;
             dataGridVentas.Columns["Vendedor"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
@@ -81,7 +88,7 @@ namespace Sistema_CB
 
         private void btnVentas_Click(object sender, EventArgs e)
         {
-            dataGridVentas.DataSource = objCtrlBauche.CargarVentas();
+            dataGridVentas.DataSource = objVenta.CargarVentas();
             dataGridVentas.Columns["Monto"].Width = 55;
             dataGridVentas.Columns["Bauche"].Width = 55;
             dataGridVentas.Columns["Fecha"].Width = 75;
@@ -100,48 +107,52 @@ namespace Sistema_CB
         private void btnAgregarVenta_Click(object sender, EventArgs e)
         {
             
-            Bauche bau = new Bauche();
-            bau.IdBauche = Convert.ToInt32(txtBauche.Text);
-            bau.Idvendedor = Convert.ToInt32(cbVendedor.SelectedValue);
-            bau.Monto = Convert.ToDouble(txtMonto.Text);
-            bau.Fecha = fecha;
-            bau.Estado = "+";
-            objCtrlBauche.AumentarMontoVendedor(bau);
-            bau.Total = objCtrlBauche.ControlMontoV(bau);
-            objCtrlBauche.AgregarVenta(bau);
+            CapaEntidad.Venta oVenta = new CapaEntidad.Venta()
+            {
+                Bauche = new Bauche() { Idbauche = Convert.ToInt32(txtBauche.Text) },
+                Vendedor = new Vendedor() { Idvendedor = Convert.ToInt32(cbVendedor.SelectedValue) },
+                Monto = Convert.ToDouble(txtMonto.Text),
+                Fecha = fecha,
+                Estado = "+",
+                
+            };
+            objVendedor.AumentarMontoVendedor(oVenta);
+            oVenta.Total = objVendedor.ControlMontoV(oVenta);
+            objVenta.AgregarVenta(oVenta);
             CargarVendedores();
         }
 
         private void btnEntrega_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
-            bau.Fecha = fecha;
-            bau.Idcuenta = 1;
-            bau.Monto = Convert.ToDouble(txtMontoEntrega.Text);
-            bau.Idvendedor = Convert.ToInt32(cbEntrega.SelectedValue);
-            bau.Estado = "-";
-            bau.IdBauche = 1;
-            objCtrlBauche.DisminuirMontoVendedor(bau);
-            bau.Total = objCtrlBauche.ControlMontoV(bau);
-            objCtrlBauche.AgregarVenta(bau);
+            CapaEntidad.Venta oVenta = new CapaEntidad.Venta()
+            {
+                Fecha = fecha,
+                Monto = Convert.ToDouble(txtMontoEntrega.Text),
+                Vendedor = new Vendedor() { Idvendedor = Convert.ToInt32(cbEntrega.SelectedValue) },
+                Estado = "-",
+                Bauche = new Bauche(){ Idbauche = 1 }
+            };
+            //bau.Idcuenta = 1;
+            objVendedor.DisminuirMontoVendedor(oVenta);
+            oVenta.Total = objVendedor.ControlMontoV(oVenta);
+            objVenta.AgregarVenta(oVenta);
             CargarVendedores();
             cbEntrega.SelectedIndex = -1;
             txtMontoEntrega.Text = "";
-            objCtrlBauche.DisminuirMontoBanco(bau);
+            //objCtrlBauche.DisminuirMontoBanco(bau);
         }
 
         private void ListarClientes()
         {
-            cbCliente.DataSource = objCtrlBauche.ListarCliente();
+            cbCliente.DataSource = objCliente.ListarCliente();
             cbCliente.DisplayMember = "cliente";
             cbCliente.ValueMember = "id";
         }
 
         private AutoCompleteStringCollection AutoListarClientes()
         {
-            CtrlBauche objCtrl = new CtrlBauche();
             DataTable tabla = new DataTable();
-            tabla = objCtrl.ListarCliente();
+            tabla = objCliente.ListarCliente();
             AutoCompleteStringCollection dato = new AutoCompleteStringCollection();
 
             for (int i = 0; i < tabla.Rows.Count; i++)
@@ -155,28 +166,30 @@ namespace Sistema_CB
 
         private void btnAgregarCompra_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
-            bau.Idcuenta = 1;
-            bau.Banco = txt_BancoRef.Text;
-            bau.Fecha = fecha;
-            bau.IdCliente = Convert.ToInt32(cbCliente.SelectedValue);
-            bau.Monto = Convert.ToDouble(txtMontoCompra.Text);                      
+            Compra oCompra = new Compra()
+            {
+                Refencia = txt_BancoRef.Text,
+                Fecha = fecha,
+                Cliente = new Cliente() { Id = Convert.ToInt32(cbCliente.SelectedValue) },
+                Monto = Convert.ToDouble(txtMontoCompra.Text)
+            };
+            //bau.Idcuenta = 1;                     
             if (checkPorCobrar.Checked)
             {
-                objCtrlBauche.AgregarCuentaXCobrar(bau);
-                bau.Estado = "Pendiente";
+                objPenxcobrar.AgregarCuentaXCobrar(oCompra);
+                oCompra.Estado = "Pendiente";
             }else
             {
-                objCtrlBauche.AumentarMontoBanco(bau);
-                bau.Estado = "Cancelado";
+                //objCtrlBauche.AumentarMontoBanco(oCompra);
+                oCompra.Estado = "Cancelado";
             }
-            objCtrlBauche.AgregarCompra(bau);
+            objCompra.AgregarCompra(oCompra);
             CargarCuentaXCobrar();
         }
 
         private void CargarCuentaXCobrar()
         {
-            dataGridCompras.DataSource = objCtrlBauche.CargarCuentasXCobrar();
+            dataGridCompras.DataSource = objPenxcobrar.CargarCuentasXCobrar();
             dataGridCompras.Columns["Cliente"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridCompras.Columns["Monto"].Width = 80;
             dataGridCompras.Columns["id"].Visible = false;
@@ -184,29 +197,32 @@ namespace Sistema_CB
 
         private void btnRecibir_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
-            bau.Fecha = fecha;
-            bau.Idcuenta = 1;
-            bau.Banco = "";
-            bau.IdCliente = Convert.ToInt32(cbClientexCobrar.SelectedValue);
-            bau.Monto = Convert.ToDouble(txtMontoxCobrar.Text);
-            bau.Estado = "Deuda";
-            objCtrlBauche.DisminuirMontoCliente(bau);
-            objCtrlBauche.AgregarCompra(bau);
+            Compra oCompra = new Compra()
+            {
+                Fecha = fecha,
+                Refencia = "",
+                Cliente = new Cliente() { Id = Convert.ToInt32(cbClientexCobrar.SelectedValue) },
+                Monto = Convert.ToDouble(txtMontoxCobrar.Text),
+                Estado = "Deuda"
+            };
+            //bau.Idcuenta = 1;
+
+            objPenxcobrar.DisminuirMontoCliente(oCompra);
+            objCompra.AgregarCompra(oCompra);
             CargarCuentaXCobrar();
-            objCtrlBauche.AumentarMontoBanco(bau);
+            //objCtrlBauche.AumentarMontoBanco(bau);
         }
 
         private void ListarClienteXCobrar()
         {
-            cbClientexCobrar.DataSource = objCtrlBauche.CargarCuentasXCobrar();
+            cbClientexCobrar.DataSource = objPenxcobrar.CargarCuentasXCobrar();
             cbClientexCobrar.DisplayMember = "cliente";
             cbClientexCobrar.ValueMember = "id";
         }
 
         private void btnMostrarCompras_Click(object sender, EventArgs e)
         {
-            dataGridCompras.DataSource = objCtrlBauche.CargarCompras();
+            dataGridCompras.DataSource = objCompra.CargarCompras();
             dataGridCompras.Columns["Monto"].Width = 47;
             dataGridCompras.Columns["Fecha"].Width = 70;
             dataGridCompras.Columns["Operacion"].Width = 75;
@@ -233,9 +249,8 @@ namespace Sistema_CB
 
         private void btn_Cstavendedor_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
-            bau.Idvendedor = Convert.ToInt32(cbVendedor.SelectedValue);
-            dataGridVentas.DataSource = objCtrlBauche.CargarDetalleVendedor(bau);
+            CapaEntidad.Venta oVenta = new CapaEntidad.Venta() { Vendedor = new Vendedor() { Idvendedor = Convert.ToInt32(cbVendedor.SelectedValue) } };
+            dataGridVentas.DataSource = objVenta.CargarDetalleVendedor(oVenta);
             dataGridVentas.Columns["Monto"].Width = 55;
             dataGridVentas.Columns["Bauche"].Width = 55;
             dataGridVentas.Columns["Fecha"].Width = 75;
@@ -251,9 +266,8 @@ namespace Sistema_CB
 
         private void btnConsultaClie_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
-            bau.IdCliente = Convert.ToInt32(cbCliente.SelectedValue);
-            dataGridCompras.DataSource = objCtrlBauche.DetalleCompraCliente(bau);
+            Compra oCompra = new Compra() { Cliente = new Cliente() { Id = Convert.ToInt32(cbCliente.SelectedValue) } };
+            dataGridCompras.DataSource = objCompra.DetalleCompraCliente(oCompra);
             dataGridCompras.Columns["Monto"].Width = 47;
             dataGridCompras.Columns["Fecha"].Width = 70;
             dataGridCompras.Columns["Operacion"].Width = 75;
@@ -264,6 +278,11 @@ namespace Sistema_CB
                 if (row.Cells["Operacion"].Value.ToString() == "Pendiente")
                     row.DefaultCellStyle.BackColor = Color.FromArgb(229, 50, 50);
             }
+        }
+
+        private void btn_Cstavendedor_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

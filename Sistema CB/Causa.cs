@@ -1,4 +1,5 @@
-﻿using iText.IO.Font.Constants;
+﻿using CapaDatos;
+using iText.IO.Font.Constants;
 using iText.Kernel.Font;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
@@ -20,6 +21,9 @@ namespace Sistema_CB
     public partial class Causa : Form
     {
         CtrlBauche objCtrlBauche = new CtrlBauche();
+        CD_Causa objCausa = new CD_Causa();
+        CD_Cliente objCliente = new CD_Cliente();
+        CapaEntidad.Causa oCausa;
         public Causa()
         {
             InitializeComponent();
@@ -32,7 +36,7 @@ namespace Sistema_CB
             CargarGrupoCausa();
             cbCliente.SelectedIndex = -1;
             int dato = Convert.ToInt32(numGrupoCausa.Value);
-            txtBillete.Text = objCtrlBauche.LlenarTxtCodBillete(dato);
+            txtBillete.Text = objCausa.LlenarTxtCodBillete(dato);
             cbCliente.AutoCompleteCustomSource = AutoListarClientes();
             cbCliente.AutoCompleteMode = AutoCompleteMode.Suggest;
             cbCliente.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -44,7 +48,7 @@ namespace Sistema_CB
 
         private void CargarCausa()
         {
-            dataGridCausa.DataSource = objCtrlBauche.CargarCausa();
+            dataGridCausa.DataSource = objCausa.CargarCausa();
             dataGridCausa.Columns["direccion"].Width = 150;
             dataGridCausa.Columns["cliente"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
@@ -54,7 +58,7 @@ namespace Sistema_CB
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             int dato = Convert.ToInt32(numGrupoCausa.Value);
-            txtBillete.Text = objCtrlBauche.LlenarTxtCodBillete(dato);
+            txtBillete.Text = objCausa.LlenarTxtCodBillete(dato);
             CargarGrupoCausa();
             if(dataGridGrupoC.Rows.Count < 1)
             {
@@ -64,10 +68,13 @@ namespace Sistema_CB
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
-            bau.IdCliente = Convert.ToInt32(cbCliente.SelectedValue);
-            bau.Observaciones = txtObservacion.Text;
-            objCtrlBauche.AgregarCausa(bau);
+            oCausa = new CapaEntidad.Causa()
+            {
+                Idcliente = Convert.ToInt32(cbCliente.SelectedValue),
+                Observacion = txtObservacion.Text
+            };
+            
+            objCausa.AgregarCausa(oCausa);
             CargarCausa();
             txtDireccion.Text = "";
             txtObservacion.Text = "";
@@ -76,11 +83,11 @@ namespace Sistema_CB
 
         private void ListarClientes()
         {
-            CtrlBauche objCtrl = new CtrlBauche();
-            cbCliente.DataSource = objCtrl.ListarCliente();
+            
+            cbCliente.DataSource = objCliente.ListarCliente();
             cbCliente.DisplayMember = "cliente";
             cbCliente.ValueMember = "id";
-            CbPortador.DataSource = objCtrl.ListarCliente();
+            CbPortador.DataSource = objCliente.ListarCliente();
             CbPortador.DisplayMember = "cliente";
             CbPortador.ValueMember = "id";
 
@@ -89,11 +96,14 @@ namespace Sistema_CB
 
         private void AgregarGrupo_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
-            bau.IdCliente = Convert.ToInt32(cbCliente.SelectedValue);
-            bau.Grupo = Convert.ToInt32(numGrupoCausa.Value);
-            bau.Codbillete = txtBillete.Text;
-            objCtrlBauche.AgregarGrupoCausa(bau);
+            oCausa = new CapaEntidad.Causa()
+            {
+                Idcliente = Convert.ToInt32(cbCliente.SelectedValue),
+                Grupo = Convert.ToInt32(numGrupoCausa.Value),
+                Cod_Billete = txtBillete.Text,            
+             };
+            
+            objCausa.AgregarGrupoCausa(oCausa);
             CargarCausa();
             CargarGrupoCausa();
             txtDireccion.Text = "";
@@ -103,9 +113,12 @@ namespace Sistema_CB
 
         private void CargarGrupoCausa()
         {
-            Bauche bau = new Bauche();
-            bau.Grupo = Convert.ToInt32(numGrupoCausa.Value);
-            dataGridGrupoC.DataSource = objCtrlBauche.CargarGrupoCausa(bau);
+            oCausa = new CapaEntidad.Causa()
+            {
+                Grupo = Convert.ToInt32(numGrupoCausa.Value)
+            };
+            
+            dataGridGrupoC.DataSource = objCausa.CargarGrupoCausa(oCausa);
             dataGridGrupoC.Columns["direccion"].Width = 150;
             dataGridGrupoC.Columns["Observacion"].Width = 150;
             dataGridGrupoC.Columns["cliente"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -137,9 +150,11 @@ namespace Sistema_CB
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
-            bau.IdCliente = Convert.ToInt32(cbCliente.SelectedValue);
-            objCtrlBauche.EliminarCausa(bau);
+            oCausa  = new CapaEntidad.Causa()
+            {
+                Idcliente = Convert.ToInt32(cbCliente.SelectedValue)
+            };
+            objCausa.EliminarCausa(oCausa);
             CargarGrupoCausa();
             CargarCausa();
         }
@@ -148,9 +163,12 @@ namespace Sistema_CB
         {
             if (dataGridGrupoC.SelectedRows.Count > 0)
             {
-                Bauche bau = new Bauche();
-                bau.IdCliente = Convert.ToInt32(dataGridGrupoC.CurrentRow.Cells["idcliente"].Value);
-                objCtrlBauche.QuitarGrupoCausa(bau);
+                oCausa = new CapaEntidad.Causa()
+                {
+                    Idcliente = Convert.ToInt32(dataGridGrupoC.CurrentRow.Cells["idcliente"].Value)
+                };
+                ;
+                objCausa.QuitarGrupoCausa(oCausa);
             }
             else
             {
@@ -173,7 +191,7 @@ namespace Sistema_CB
 
             if(resultado == DialogResult.OK)
             {
-                objCtrlBauche.LimpiarCausa();
+                objCausa.LimpiarCausa();
                 CargarCausa();
                 CargarGrupoCausa();
             }
@@ -181,9 +199,8 @@ namespace Sistema_CB
 
         private AutoCompleteStringCollection AutoListarClientes()
         {
-            CtrlBauche objCtrl = new CtrlBauche();
             DataTable tabla = new DataTable();
-            tabla = objCtrl.ListarCliente();
+            tabla = objCliente.ListarCliente();
             AutoCompleteStringCollection dato = new AutoCompleteStringCollection();
 
             for (int i = 0; i < tabla.Rows.Count; i++)
@@ -198,9 +215,12 @@ namespace Sistema_CB
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
-            bau.IdCliente = Convert.ToInt32(cbCliente.SelectedValue);
-            dataGridCausa.DataSource = objCtrlBauche.BuscarCausa(bau);
+            oCausa = new CapaEntidad.Causa()
+            {
+                Idcliente = Convert.ToInt32(cbCliente.SelectedValue)
+            };
+            ;
+            dataGridCausa.DataSource = objCausa.BuscarCausa(oCausa);
             dataGridCausa.Columns["Grupo"].Width = 50;
         }
 
@@ -217,11 +237,15 @@ namespace Sistema_CB
 
         private void btnPdfGrupo_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
-            bau.Grupo = Convert.ToInt32(numGrupoCausa.Value);
-            bau.Cliente = CbPortador.Text;
-            bau.Codbillete = txtBillete.Text;
-            objCtrlBauche.CrearPdfGrupo(bau);
+            oCausa = new CapaEntidad.Causa()
+            {
+                Grupo = Convert.ToInt32(numGrupoCausa.Value),
+                Cod_Billete = txtBillete.Text
+                
+            };
+            string portador = CbPortador.Text;
+            
+            objCausa.CrearPdfGrupo(oCausa,portador);
         
         }
     }

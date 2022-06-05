@@ -29,10 +29,10 @@ namespace Sistema_CB
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridVentas = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btn_Cstavendedor = new System.Windows.Forms.Button();
@@ -52,6 +52,7 @@ namespace Sistema_CB
             this.txtMontoEntrega = new System.Windows.Forms.TextBox();
             this.cbEntrega = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnConsultaClie = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.txt_BancoRef = new System.Windows.Forms.TextBox();
             this.btnCliente = new System.Windows.Forms.Button();
@@ -68,7 +69,6 @@ namespace Sistema_CB
             this.btnRecibir = new System.Windows.Forms.Button();
             this.txtMontoxCobrar = new System.Windows.Forms.TextBox();
             this.cbClientexCobrar = new System.Windows.Forms.ComboBox();
-            this.btnConsultaClie = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridVentas)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -83,14 +83,14 @@ namespace Sistema_CB
             this.dataGridVentas.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(70)))));
             this.dataGridVentas.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridVentas.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.HotTrack;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Lucida Calligraphy", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.HotTrack;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Lucida Calligraphy", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridVentas.ColumnHeadersHeight = 27;
             this.dataGridVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridVentas.EnableHeadersVisualStyles = false;
@@ -98,12 +98,12 @@ namespace Sistema_CB
             this.dataGridVentas.Location = new System.Drawing.Point(19, 162);
             this.dataGridVentas.Name = "dataGridVentas";
             this.dataGridVentas.RowHeadersVisible = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(70)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Lucida Calligraphy", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.SteelBlue;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            this.dataGridVentas.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(70)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Lucida Calligraphy", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.SteelBlue;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
+            this.dataGridVentas.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridVentas.Size = new System.Drawing.Size(364, 252);
             this.dataGridVentas.TabIndex = 2;
@@ -142,6 +142,7 @@ namespace Sistema_CB
             this.btn_Cstavendedor.TabIndex = 17;
             this.btn_Cstavendedor.Text = "Consultar ";
             this.btn_Cstavendedor.UseVisualStyleBackColor = true;
+            this.btn_Cstavendedor.Click += new System.EventHandler(this.btn_Cstavendedor_Click);
             // 
             // txtCodigo
             // 
@@ -309,6 +310,17 @@ namespace Sistema_CB
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Compra";
             // 
+            // btnConsultaClie
+            // 
+            this.btnConsultaClie.ForeColor = System.Drawing.Color.Black;
+            this.btnConsultaClie.Location = new System.Drawing.Point(260, 70);
+            this.btnConsultaClie.Name = "btnConsultaClie";
+            this.btnConsultaClie.Size = new System.Drawing.Size(86, 25);
+            this.btnConsultaClie.TabIndex = 15;
+            this.btnConsultaClie.Text = "Consultar";
+            this.btnConsultaClie.UseVisualStyleBackColor = true;
+            this.btnConsultaClie.Click += new System.EventHandler(this.btnConsultaClie_Click);
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -364,14 +376,14 @@ namespace Sistema_CB
             this.dataGridCompras.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(70)))));
             this.dataGridCompras.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridCompras.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.HotTrack;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Lucida Calligraphy", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridCompras.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.HotTrack;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Lucida Calligraphy", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridCompras.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridCompras.ColumnHeadersHeight = 27;
             this.dataGridCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridCompras.EnableHeadersVisualStyles = false;
@@ -379,12 +391,12 @@ namespace Sistema_CB
             this.dataGridCompras.Location = new System.Drawing.Point(19, 207);
             this.dataGridCompras.Name = "dataGridCompras";
             this.dataGridCompras.RowHeadersVisible = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(70)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Lucida Calligraphy", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.SteelBlue;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
-            this.dataGridCompras.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(70)))));
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Lucida Calligraphy", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.SteelBlue;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
+            this.dataGridCompras.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridCompras.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridCompras.Size = new System.Drawing.Size(373, 205);
             this.dataGridCompras.TabIndex = 9;
@@ -482,17 +494,6 @@ namespace Sistema_CB
             this.cbClientexCobrar.Name = "cbClientexCobrar";
             this.cbClientexCobrar.Size = new System.Drawing.Size(145, 25);
             this.cbClientexCobrar.TabIndex = 10;
-            // 
-            // btnConsultaClie
-            // 
-            this.btnConsultaClie.ForeColor = System.Drawing.Color.Black;
-            this.btnConsultaClie.Location = new System.Drawing.Point(260, 70);
-            this.btnConsultaClie.Name = "btnConsultaClie";
-            this.btnConsultaClie.Size = new System.Drawing.Size(86, 25);
-            this.btnConsultaClie.TabIndex = 15;
-            this.btnConsultaClie.Text = "Consultar";
-            this.btnConsultaClie.UseVisualStyleBackColor = true;
-            this.btnConsultaClie.Click += new System.EventHandler(this.btnConsultaClie_Click);
             // 
             // CompraVenta
             // 

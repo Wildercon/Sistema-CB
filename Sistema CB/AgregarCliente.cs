@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CapaDatos;
+using CapaEntidad;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +14,7 @@ namespace Sistema_CB
 {
     public partial class AgregarCliente : Form
     {
-        CtrlBauche objCtrlBauche = new CtrlBauche();
+        CD_Cliente objCliente= new CD_Cliente();
         public AgregarCliente()
         {
             InitializeComponent();
@@ -25,10 +27,12 @@ namespace Sistema_CB
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            Bauche bau = new Bauche();
-            bau.Cliente = txtCliente.Text;
-            bau.Direccion = txtDireccion.Text;
-            objCtrlBauche.AgregarCliente(bau);
+            Cliente oCliente = new Cliente()
+            {
+                NombreCliente = txtCliente.Text ,
+                Direccion = txtDireccion.Text
+            };
+            objCliente.AgregarCliente(oCliente);
             txtCliente.Text = "";
             txtDireccion.Text = "";
         }

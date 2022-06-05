@@ -1,5 +1,4 @@
 ﻿using MySql.Data.MySqlClient;
-using Sistema_CB.Properties;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -7,9 +6,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace Sistema_CB
+namespace CapaDatos
 {
     class Conexion
     {
