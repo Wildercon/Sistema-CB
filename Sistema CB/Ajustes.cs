@@ -72,7 +72,7 @@ namespace Sistema_CB
             if(cbProducto.SelectedIndex > 0)
             {
                 int dato = Convert.ToInt32(cbProducto.SelectedValue);
-                txtPrecio.Text = objCtrlBauche.LLenartxtPrecio(dato);
+                txtPrecio.Text = objProducto.LLenartxtPrecio(dato);
             }
             else
             {

@@ -26,6 +26,7 @@ namespace CapaDatos
                 comando.Parameters.AddWithValue("Idbauch", datos.bauche.Idbauche);
                 comando.Parameters.AddWithValue("Cantida", datos.Cantidad);
                 comando.Parameters.AddWithValue("Idproduct", datos.producto.Idproducto);
+                comando.Parameters.AddWithValue("Precio", datos.PrecioP);
                 comando.ExecuteNonQuery();
             }
             catch (MySqlException e)

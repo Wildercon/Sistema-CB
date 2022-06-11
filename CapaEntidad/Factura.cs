@@ -13,5 +13,7 @@ namespace CapaEntidad
         public double Cantidad { get; set; }
         public Producto producto { get; set; }
         public string Fecha { get; set; }
+
+        public double PrecioP { get; set; }
     }
 }

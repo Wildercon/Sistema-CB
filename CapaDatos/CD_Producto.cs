@@ -88,6 +88,39 @@ namespace CapaDatos
             conexionBD.cerrarConexion();
             return tabla;
         }
+        public string LLenartxtPrecio(int dato)
+        {
+            string datos, mensaje = "";
+            try
+            {
+                comando.Connection = conexionBD.abrirconexion();
+                comando.CommandText = "LLenartxtPrecio";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("IdProduct", dato);
+                LeerFilas = comando.ExecuteReader();
+                
+                if (LeerFilas.Read() == true)
+                {
+                    datos = LeerFilas[0].ToString();
+                    mensaje = string.Format(datos);
+                    LeerFilas.Close();
+                    comando.Parameters.Clear();
+                    conexionBD.cerrarConexion();
+                }
+                else
+                {
+                    LeerFilas.Close();
+                    comando.Parameters.Clear();
+                    conexionBD.cerrarConexion();
+                }
+            }
+            catch (MySqlException e)
+            {
+                //messagebox.Show(e.ToString());
+            }
+
+            return mensaje;
+        }
 
     }
 }

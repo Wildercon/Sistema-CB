@@ -84,6 +84,7 @@ namespace Sistema_CB
             this.label14 = new System.Windows.Forms.Label();
             this.txtPrecioDolar = new System.Windows.Forms.TextBox();
             this.btnEstado = new System.Windows.Forms.Button();
+            this.txtPrecio = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridBauche)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -330,6 +331,7 @@ namespace Sistema_CB
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtPrecio);
             this.groupBox2.Controls.Add(this.txtCantProd);
             this.groupBox2.Controls.Add(this.btnEliminarPro);
             this.groupBox2.Controls.Add(this.lblMontoEfectivo);
@@ -361,7 +363,7 @@ namespace Sistema_CB
             // 
             this.txtCantProd.Location = new System.Drawing.Point(245, 27);
             this.txtCantProd.Name = "txtCantProd";
-            this.txtCantProd.Size = new System.Drawing.Size(82, 24);
+            this.txtCantProd.Size = new System.Drawing.Size(53, 24);
             this.txtCantProd.TabIndex = 27;
             this.txtCantProd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantProd_KeyPress);
             // 
@@ -499,7 +501,7 @@ namespace Sistema_CB
             // 
             this.bntAgregarP.Font = new System.Drawing.Font("Lucida Calligraphy", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bntAgregarP.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.bntAgregarP.Location = new System.Drawing.Point(353, 24);
+            this.bntAgregarP.Location = new System.Drawing.Point(377, 24);
             this.bntAgregarP.Name = "bntAgregarP";
             this.bntAgregarP.Size = new System.Drawing.Size(83, 31);
             this.bntAgregarP.TabIndex = 3;
@@ -686,6 +688,13 @@ namespace Sistema_CB
             this.btnEstado.UseVisualStyleBackColor = true;
             this.btnEstado.Click += new System.EventHandler(this.btnEstado_Click);
             // 
+            // txtPrecio
+            // 
+            this.txtPrecio.Location = new System.Drawing.Point(312, 27);
+            this.txtPrecio.Name = "txtPrecio";
+            this.txtPrecio.Size = new System.Drawing.Size(53, 24);
+            this.txtPrecio.TabIndex = 28;
+            // 
             // Venta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -777,5 +786,6 @@ namespace Sistema_CB
         private System.Windows.Forms.Button btnEstado;
         private System.Windows.Forms.Button btnEliminarPro;
         private System.Windows.Forms.TextBox txtCantProd;
+        private System.Windows.Forms.TextBox txtPrecio;
     }
 }

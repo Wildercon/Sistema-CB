@@ -14,9 +14,7 @@ namespace CapaDatos
         private Conexion conexionBD = new Conexion();
         private MySqlCommand comando = new MySqlCommand();
         private MySqlDataReader LeerFilas;
-        private string datos;
-        private string mensaje = "";
-        private double montoO;
+
         public void AgregarCliente(Cliente datos)
         {
             try

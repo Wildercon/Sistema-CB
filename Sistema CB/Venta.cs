@@ -284,7 +284,8 @@ namespace Sistema_CB
                 {
                     bauche = new Bauche() { Idbauche = Convert.ToInt32(lbIdFactura.Text) },
                     producto = new Producto() { Idproducto = Convert.ToInt32(cbProducto.SelectedValue) } ,
-                    Cantidad = Convert.ToDouble(txtCantProd.Text)
+                    Cantidad = Convert.ToDouble(txtCantProd.Text),
+                    PrecioP = Convert.ToDouble(txtPrecio.Text)
                 };
                 
                 
@@ -323,6 +324,10 @@ namespace Sistema_CB
             }
             txtCantProd.Text = "1";
             cbProducto.Focus();
+            if(Convert.ToDouble(lblDisponible.Text) < 1)
+            {
+                cbEstado.Text = "Cancelada";
+            }
         }
 
         private void calcularFactura()
@@ -417,8 +422,18 @@ namespace Sistema_CB
        
 
         private void cbProducto_SelectedIndexChanged(object sender, EventArgs e)
-        {                      
-             txtCantProd.Focus();           
+        {
+            if(cbProducto.SelectedIndex > 0)
+            {
+                int idProducto = Convert.ToInt32(cbProducto.SelectedValue);
+                
+                txtPrecio.Text = objProducto.LLenartxtPrecio(idProducto);
+            }
+            else
+            {
+                txtPrecio.Text = "1,25";
+            }
+            txtCantProd.Focus();
         }
 
 
