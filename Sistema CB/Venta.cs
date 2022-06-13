@@ -68,13 +68,13 @@ namespace Sistema_CB
         {
             Bauche oBauche = new Bauche();
             if (rdbCodigo.Checked)
-            {               
+            {
                 oBauche.Codigo = Convert.ToInt32(txtBuscar.Text);
                 dataGridBauche.DataSource = objCtrlBauche.BuscarBauCodigo(oBauche);
             }else if (rdbCliente.Checked)
             {
-                oBauche.cliente.NombreCliente = txtBuscar.Text;
-                dataGridBauche.DataSource = objCtrlBauche.BuscarBauCliente(oBauche);
+                string NombreCliente = txtBuscar.Text;
+                dataGridBauche.DataSource = objCtrlBauche.BuscarBauCliente(NombreCliente);
             }else if (rdbMonto.Checked)
             {
                 oBauche.Monto = Convert.ToDouble(txtBuscar.Text);
@@ -445,7 +445,10 @@ namespace Sistema_CB
                 int dato = Convert.ToInt32(cbCliente.SelectedValue);
                 txtDireccion.Text = objCtrlBauche.CompletarTxtDireccion(dato);
                 objCtrlBauche.VerificarBaucheDeuda(dato);
-                objCtrlBauche.VerificarClienteCredito(dato);
+                if (objCtrlBauche.VerificarClienteCredito(dato))
+                {
+                    MessageBox.Show("Cliente Tiene Deuda en Credito","Mensaje",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                } ;
                 
                 if (operacion == "Editar")
                 {

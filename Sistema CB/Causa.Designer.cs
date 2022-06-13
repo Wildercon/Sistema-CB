@@ -44,6 +44,8 @@ namespace Sistema_CB
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.CbPortador = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.btnPdfGrupo = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.txtCanCauGrup = new System.Windows.Forms.TextBox();
@@ -61,8 +63,8 @@ namespace Sistema_CB
             this.btnPdf = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnCliente = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.CbPortador = new System.Windows.Forms.ComboBox();
+            this.CbGrupo = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridCausa)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -104,6 +106,8 @@ namespace Sistema_CB
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.CbGrupo);
             this.groupBox1.Controls.Add(this.txtObservacion);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.btnEliminar);
@@ -118,10 +122,11 @@ namespace Sistema_CB
             this.groupBox1.Size = new System.Drawing.Size(311, 206);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // txtObservacion
             // 
-            this.txtObservacion.Location = new System.Drawing.Point(109, 112);
+            this.txtObservacion.Location = new System.Drawing.Point(109, 91);
             this.txtObservacion.Name = "txtObservacion";
             this.txtObservacion.Size = new System.Drawing.Size(163, 25);
             this.txtObservacion.TabIndex = 6;
@@ -130,7 +135,7 @@ namespace Sistema_CB
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(6, 115);
+            this.label5.Location = new System.Drawing.Point(6, 96);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(97, 17);
             this.label5.TabIndex = 5;
@@ -140,7 +145,7 @@ namespace Sistema_CB
             // 
             this.btnEliminar.Font = new System.Drawing.Font("Lucida Calligraphy", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminar.ForeColor = System.Drawing.Color.Black;
-            this.btnEliminar.Location = new System.Drawing.Point(143, 151);
+            this.btnEliminar.Location = new System.Drawing.Point(147, 165);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(101, 30);
             this.btnEliminar.TabIndex = 4;
@@ -151,7 +156,7 @@ namespace Sistema_CB
             // btnAgregar
             // 
             this.btnAgregar.ForeColor = System.Drawing.Color.Black;
-            this.btnAgregar.Location = new System.Drawing.Point(25, 151);
+            this.btnAgregar.Location = new System.Drawing.Point(29, 165);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(90, 30);
             this.btnAgregar.TabIndex = 4;
@@ -161,7 +166,7 @@ namespace Sistema_CB
             // 
             // txtDireccion
             // 
-            this.txtDireccion.Location = new System.Drawing.Point(109, 72);
+            this.txtDireccion.Location = new System.Drawing.Point(109, 51);
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(163, 25);
             this.txtDireccion.TabIndex = 3;
@@ -169,7 +174,7 @@ namespace Sistema_CB
             // cbCliente
             // 
             this.cbCliente.FormattingEnabled = true;
-            this.cbCliente.Location = new System.Drawing.Point(109, 34);
+            this.cbCliente.Location = new System.Drawing.Point(109, 13);
             this.cbCliente.Name = "cbCliente";
             this.cbCliente.Size = new System.Drawing.Size(163, 25);
             this.cbCliente.TabIndex = 2;
@@ -179,7 +184,7 @@ namespace Sistema_CB
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(6, 80);
+            this.label2.Location = new System.Drawing.Point(6, 59);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(80, 17);
             this.label2.TabIndex = 1;
@@ -189,7 +194,7 @@ namespace Sistema_CB
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 42);
+            this.label1.Location = new System.Drawing.Point(12, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 17);
             this.label1.TabIndex = 0;
@@ -217,6 +222,23 @@ namespace Sistema_CB
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Grupos";
+            // 
+            // CbPortador
+            // 
+            this.CbPortador.FormattingEnabled = true;
+            this.CbPortador.Location = new System.Drawing.Point(571, 53);
+            this.CbPortador.Name = "CbPortador";
+            this.CbPortador.Size = new System.Drawing.Size(117, 25);
+            this.CbPortador.TabIndex = 13;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(475, 53);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(76, 17);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "Portador:";
             // 
             // btnPdfGrupo
             // 
@@ -291,6 +313,7 @@ namespace Sistema_CB
             this.label3.Size = new System.Drawing.Size(55, 17);
             this.label3.TabIndex = 4;
             this.label3.Text = "Grupo:";
+            this.label3.Click += new System.EventHandler(this.c);
             // 
             // numGrupoCausa
             // 
@@ -419,22 +442,22 @@ namespace Sistema_CB
             this.btnCliente.UseVisualStyleBackColor = true;
             this.btnCliente.Click += new System.EventHandler(this.btnCliente_Click);
             // 
-            // label7
+            // CbGrupo
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(475, 53);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(76, 17);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "Portador:";
+            this.CbGrupo.FormattingEnabled = true;
+            this.CbGrupo.Location = new System.Drawing.Point(109, 129);
+            this.CbGrupo.Name = "CbGrupo";
+            this.CbGrupo.Size = new System.Drawing.Size(163, 25);
+            this.CbGrupo.TabIndex = 7;
             // 
-            // CbPortador
+            // label8
             // 
-            this.CbPortador.FormattingEnabled = true;
-            this.CbPortador.Location = new System.Drawing.Point(571, 53);
-            this.CbPortador.Name = "CbPortador";
-            this.CbPortador.Size = new System.Drawing.Size(117, 25);
-            this.CbPortador.TabIndex = 13;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(20, 133);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(55, 17);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Grupo:";
             // 
             // Causa
             // 
@@ -494,5 +517,7 @@ namespace Sistema_CB
         private System.Windows.Forms.Button btnPdfGrupo;
         private System.Windows.Forms.ComboBox CbPortador;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox CbGrupo;
+        private System.Windows.Forms.Label label8;
     }
 }

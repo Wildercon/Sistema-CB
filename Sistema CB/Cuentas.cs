@@ -17,7 +17,7 @@ namespace Sistema_CB
         CtrlBauche objCtrlbauche = new CtrlBauche();
         CD_Factura objFactura = new CD_Factura();
         CD_Pendientexcobrar objPenxcobrar = new CD_Pendientexcobrar();
-        string fecha = DateTime.Now.ToShortDateString();
+        string fecha = DateTime.Now.ToString("yyyy/MM/dd");
         public Cuentas()
         {
             InitializeComponent();
@@ -34,8 +34,8 @@ namespace Sistema_CB
 
         private void MostrarCuentas()
         {
-            Factura oFactura = new Factura() { Fecha = txtFecha.Text };
-            dataGridCuentas.DataSource = objFactura.CargarGananciaVentas(oFactura);
+            string Fecha = txtFecha.Text ;
+            dataGridCuentas.DataSource = objFactura.CargarGananciaVentas(Fecha);
             dataGridCuentas.Columns["cantidad"].Width = 70;
             dataGridCuentas.Columns["Ganancia"].Width = 70;
             dataGridCuentas.Columns["precio"].Width = 70;

@@ -14,8 +14,7 @@ namespace CapaDatos
         private Conexion conexionBD = new Conexion();
         private MySqlCommand comando = new MySqlCommand();
         private MySqlDataReader LeerFilas;
-        private string datos;
-        private string mensaje = "";
+       
         public void AgregarProFactura(Factura datos)
         {
             try
@@ -54,7 +53,7 @@ namespace CapaDatos
             comando.Parameters.Clear();
             conexionBD.cerrarConexion();
         }
-        public DataTable CargarGananciaVentas(Factura datos)
+        public DataTable CargarGananciaVentas(string Fecha)
         {
             DataTable tabla = new DataTable();
             try
@@ -62,7 +61,7 @@ namespace CapaDatos
                 comando.Connection = conexionBD.abrirconexion();
                 comando.CommandText = "CargarGananciaVentas";
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("fech", datos.Fecha);
+                comando.Parameters.AddWithValue("fech", Fecha);
                 LeerFilas = comando.ExecuteReader();
                 tabla.Load(LeerFilas);
             }

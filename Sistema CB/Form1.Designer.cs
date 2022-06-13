@@ -41,6 +41,7 @@ namespace Sistema_CB
             this.PanelLogo = new System.Windows.Forms.Panel();
             this.btnInicio = new System.Windows.Forms.PictureBox();
             this.panelTitleBar = new System.Windows.Forms.Panel();
+            this.btnMenu = new System.Windows.Forms.PictureBox();
             this.btnRestaurar = new System.Windows.Forms.PictureBox();
             this.brtMinimizar = new System.Windows.Forms.PictureBox();
             this.btnMaximizar = new System.Windows.Forms.PictureBox();
@@ -50,11 +51,11 @@ namespace Sistema_CB
             this.panelSombra = new System.Windows.Forms.Panel();
             this.panelContenedor = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnMenu = new System.Windows.Forms.PictureBox();
             this.PanelMenu.SuspendLayout();
             this.PanelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnInicio)).BeginInit();
             this.panelTitleBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMenu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnRestaurar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.brtMinimizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
@@ -62,7 +63,6 @@ namespace Sistema_CB
             ((System.ComponentModel.ISupportInitialize)(this.iconTitleBar)).BeginInit();
             this.panelContenedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnMenu)).BeginInit();
             this.SuspendLayout();
             // 
             // PanelMenu
@@ -87,14 +87,17 @@ namespace Sistema_CB
             this.BtnCredito.Dock = System.Windows.Forms.DockStyle.Top;
             this.BtnCredito.FlatAppearance.BorderSize = 0;
             this.BtnCredito.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnCredito.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.BtnCredito.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnCredito.ForeColor = System.Drawing.Color.Gainsboro;
             this.BtnCredito.IconChar = FontAwesome.Sharp.IconChar.UserTag;
             this.BtnCredito.IconColor = System.Drawing.Color.Gainsboro;
-            this.BtnCredito.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.BtnCredito.IconSize = 40;
             this.BtnCredito.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnCredito.Location = new System.Drawing.Point(0, 440);
             this.BtnCredito.Name = "BtnCredito";
             this.BtnCredito.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.BtnCredito.Rotation = 0D;
             this.BtnCredito.Size = new System.Drawing.Size(211, 60);
             this.BtnCredito.TabIndex = 7;
             this.BtnCredito.Text = "Credito";
@@ -108,14 +111,17 @@ namespace Sistema_CB
             this.btnCuentas.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnCuentas.FlatAppearance.BorderSize = 0;
             this.btnCuentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCuentas.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.btnCuentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCuentas.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnCuentas.IconChar = FontAwesome.Sharp.IconChar.University;
             this.btnCuentas.IconColor = System.Drawing.Color.Gainsboro;
-            this.btnCuentas.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnCuentas.IconSize = 40;
             this.btnCuentas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCuentas.Location = new System.Drawing.Point(0, 380);
             this.btnCuentas.Name = "btnCuentas";
             this.btnCuentas.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.btnCuentas.Rotation = 0D;
             this.btnCuentas.Size = new System.Drawing.Size(211, 60);
             this.btnCuentas.TabIndex = 6;
             this.btnCuentas.Text = "Cuentas";
@@ -129,14 +135,17 @@ namespace Sistema_CB
             this.btnAjustes.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnAjustes.FlatAppearance.BorderSize = 0;
             this.btnAjustes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAjustes.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.btnAjustes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAjustes.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnAjustes.IconChar = FontAwesome.Sharp.IconChar.Tools;
             this.btnAjustes.IconColor = System.Drawing.Color.Gainsboro;
-            this.btnAjustes.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnAjustes.IconSize = 40;
             this.btnAjustes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAjustes.Location = new System.Drawing.Point(0, 537);
             this.btnAjustes.Name = "btnAjustes";
             this.btnAjustes.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.btnAjustes.Rotation = 0D;
             this.btnAjustes.Size = new System.Drawing.Size(211, 60);
             this.btnAjustes.TabIndex = 5;
             this.btnAjustes.Text = "Ajustes";
@@ -150,14 +159,17 @@ namespace Sistema_CB
             this.btnCausa.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnCausa.FlatAppearance.BorderSize = 0;
             this.btnCausa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCausa.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.btnCausa.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCausa.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnCausa.IconChar = FontAwesome.Sharp.IconChar.ClipboardList;
             this.btnCausa.IconColor = System.Drawing.Color.Gainsboro;
-            this.btnCausa.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnCausa.IconSize = 40;
             this.btnCausa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCausa.Location = new System.Drawing.Point(0, 320);
             this.btnCausa.Name = "btnCausa";
             this.btnCausa.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.btnCausa.Rotation = 0D;
             this.btnCausa.Size = new System.Drawing.Size(211, 60);
             this.btnCausa.TabIndex = 4;
             this.btnCausa.Text = "Causa";
@@ -171,14 +183,17 @@ namespace Sistema_CB
             this.btnCompraVenta.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnCompraVenta.FlatAppearance.BorderSize = 0;
             this.btnCompraVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCompraVenta.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.btnCompraVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCompraVenta.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnCompraVenta.IconChar = FontAwesome.Sharp.IconChar.DollarSign;
             this.btnCompraVenta.IconColor = System.Drawing.Color.Gainsboro;
-            this.btnCompraVenta.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnCompraVenta.IconSize = 40;
             this.btnCompraVenta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCompraVenta.Location = new System.Drawing.Point(0, 260);
             this.btnCompraVenta.Name = "btnCompraVenta";
             this.btnCompraVenta.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.btnCompraVenta.Rotation = 0D;
             this.btnCompraVenta.Size = new System.Drawing.Size(211, 60);
             this.btnCompraVenta.TabIndex = 3;
             this.btnCompraVenta.Text = "Compra / Venta";
@@ -192,14 +207,17 @@ namespace Sistema_CB
             this.btnTransferencia.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnTransferencia.FlatAppearance.BorderSize = 0;
             this.btnTransferencia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTransferencia.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.btnTransferencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTransferencia.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnTransferencia.IconChar = FontAwesome.Sharp.IconChar.ExchangeAlt;
             this.btnTransferencia.IconColor = System.Drawing.Color.Gainsboro;
-            this.btnTransferencia.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnTransferencia.IconSize = 40;
             this.btnTransferencia.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTransferencia.Location = new System.Drawing.Point(0, 200);
             this.btnTransferencia.Name = "btnTransferencia";
             this.btnTransferencia.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.btnTransferencia.Rotation = 0D;
             this.btnTransferencia.Size = new System.Drawing.Size(211, 60);
             this.btnTransferencia.TabIndex = 2;
             this.btnTransferencia.Text = "Transferencia";
@@ -213,14 +231,17 @@ namespace Sistema_CB
             this.btnBauche.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnBauche.FlatAppearance.BorderSize = 0;
             this.btnBauche.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBauche.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.btnBauche.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBauche.ForeColor = System.Drawing.Color.Gainsboro;
             this.btnBauche.IconChar = FontAwesome.Sharp.IconChar.MoneyCheckAlt;
             this.btnBauche.IconColor = System.Drawing.Color.Gainsboro;
-            this.btnBauche.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnBauche.IconSize = 40;
             this.btnBauche.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnBauche.Location = new System.Drawing.Point(0, 140);
             this.btnBauche.Name = "btnBauche";
             this.btnBauche.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.btnBauche.Rotation = 0D;
             this.btnBauche.Size = new System.Drawing.Size(211, 60);
             this.btnBauche.TabIndex = 1;
             this.btnBauche.Text = "Venta";
@@ -265,6 +286,17 @@ namespace Sistema_CB
             this.panelTitleBar.Size = new System.Drawing.Size(949, 46);
             this.panelTitleBar.TabIndex = 1;
             this.panelTitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTitleBar_MouseDown);
+            // 
+            // btnMenu
+            // 
+            this.btnMenu.Image = ((System.Drawing.Image)(resources.GetObject("btnMenu.Image")));
+            this.btnMenu.Location = new System.Drawing.Point(0, 0);
+            this.btnMenu.Name = "btnMenu";
+            this.btnMenu.Size = new System.Drawing.Size(50, 46);
+            this.btnMenu.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnMenu.TabIndex = 6;
+            this.btnMenu.TabStop = false;
+            this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
             // 
             // btnRestaurar
             // 
@@ -335,7 +367,6 @@ namespace Sistema_CB
             this.iconTitleBar.ForeColor = System.Drawing.Color.MediumPurple;
             this.iconTitleBar.IconChar = FontAwesome.Sharp.IconChar.Home;
             this.iconTitleBar.IconColor = System.Drawing.Color.MediumPurple;
-            this.iconTitleBar.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconTitleBar.IconSize = 40;
             this.iconTitleBar.Location = new System.Drawing.Point(59, 3);
             this.iconTitleBar.Name = "iconTitleBar";
@@ -374,17 +405,6 @@ namespace Sistema_CB
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // btnMenu
-            // 
-            this.btnMenu.Image = ((System.Drawing.Image)(resources.GetObject("btnMenu.Image")));
-            this.btnMenu.Location = new System.Drawing.Point(0, 0);
-            this.btnMenu.Name = "btnMenu";
-            this.btnMenu.Size = new System.Drawing.Size(50, 46);
-            this.btnMenu.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnMenu.TabIndex = 6;
-            this.btnMenu.TabStop = false;
-            this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
-            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -402,6 +422,7 @@ namespace Sistema_CB
             ((System.ComponentModel.ISupportInitialize)(this.btnInicio)).EndInit();
             this.panelTitleBar.ResumeLayout(false);
             this.panelTitleBar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMenu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnRestaurar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.brtMinimizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).EndInit();
@@ -409,7 +430,6 @@ namespace Sistema_CB
             ((System.ComponentModel.ISupportInitialize)(this.iconTitleBar)).EndInit();
             this.panelContenedor.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnMenu)).EndInit();
             this.ResumeLayout(false);
 
         }

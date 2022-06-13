@@ -23,8 +23,7 @@ namespace CapaDatos
         private MySqlDataReader LeerFilas;
         private string datos;
         private string mensaje = "";
-        private double montoO;
-        public void AgregarCausa(Causa datos)
+        public string AgregarCausa(Causa datos)
         {
             try
             {
@@ -41,15 +40,16 @@ namespace CapaDatos
                 switch (e.Number)
                 {
                     case 1062:
-                        //messagebox.Show("Ya esta Registrado en la Causa");
+                        mensaje ="Ya esta Registrado en la Causa";
                         break;
                     default:
-                        //messagebox.Show(e.Number.ToString());
+                        mensaje = e.Number.ToString();
                         break;
                 }
             }
             comando.Parameters.Clear();
             conexionBD.cerrarConexion();
+            return mensaje;
         }
         public void AgregarGrupoCausa(Causa datos)
         {
@@ -113,6 +113,8 @@ namespace CapaDatos
             }
             return tabla;
         }
+
+        
 
         public int ContarGrupoCausa(Causa datos)
         {
@@ -312,7 +314,29 @@ namespace CapaDatos
             }
             return mensaje;
         }
-
+        public string PortadorGrupo(int idgrupo)
+        {
+            string mensaje = "";
+            try
+            {
+                comando.Connection = conexionBD.abrirconexion();
+                comando.CommandText = "select Grupo from grupoc where id = @id";
+                comando.CommandType = CommandType.Text;
+                comando.Parameters.AddWithValue("@id", idgrupo);
+                LeerFilas = comando.ExecuteReader();
+                if (LeerFilas.Read())
+                {
+                    mensaje = LeerFilas[0].ToString();
+                }
+            }catch(MySqlException e)
+            {
+               mensaje = e.ToString();
+            }
+            LeerFilas.Close();
+            comando.Parameters.Clear();
+            comando.Connection.Close();
+            return mensaje;
+        }
         public void QuitarGrupoCausa(Causa datos)
         {
             try

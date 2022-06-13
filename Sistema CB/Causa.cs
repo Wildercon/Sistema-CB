@@ -34,6 +34,7 @@ namespace Sistema_CB
             CargarCausa();
             ListarClientes();
             CargarGrupoCausa();
+            ListarGrupo();
             cbCliente.SelectedIndex = -1;
             int dato = Convert.ToInt32(numGrupoCausa.Value);
             txtBillete.Text = objCausa.LlenarTxtCodBillete(dato);
@@ -44,6 +45,7 @@ namespace Sistema_CB
             CbPortador.AutoCompleteCustomSource = AutoListarClientes();
             CbPortador.AutoCompleteMode = AutoCompleteMode.Suggest;
             CbPortador.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
         }
 
         private void CargarCausa()
@@ -59,6 +61,8 @@ namespace Sistema_CB
         {
             int dato = Convert.ToInt32(numGrupoCausa.Value);
             txtBillete.Text = objCausa.LlenarTxtCodBillete(dato);
+
+            CbPortador.Text = objCausa.PortadorGrupo(dato);
             CargarGrupoCausa();
             if(dataGridGrupoC.Rows.Count < 1)
             {
@@ -71,14 +75,23 @@ namespace Sistema_CB
             oCausa = new CapaEntidad.Causa()
             {
                 Idcliente = Convert.ToInt32(cbCliente.SelectedValue),
-                Observacion = txtObservacion.Text
+                Observacion = txtObservacion.Text,
+                Grupo = Convert.ToInt32(CbGrupo.SelectedValue.ToString())
             };
             
-            objCausa.AgregarCausa(oCausa);
-            CargarCausa();
-            txtDireccion.Text = "";
-            txtObservacion.Text = "";
-            cbCliente.SelectedIndex = -1; 
+            string error = objCausa.AgregarCausa(oCausa);
+            if (error == string.Empty)
+            {
+                CargarCausa();
+                txtDireccion.Text = "";
+                txtObservacion.Text = "";
+                cbCliente.SelectedIndex = -1;
+            }
+            else
+            {
+                MessageBox.Show(error);
+            }
+            
         }
 
         private void ListarClientes()
@@ -90,7 +103,13 @@ namespace Sistema_CB
             CbPortador.DataSource = objCliente.ListarCliente();
             CbPortador.DisplayMember = "cliente";
             CbPortador.ValueMember = "id";
+        }
 
+        public void ListarGrupo()
+        {
+            CbGrupo.DataSource = objCausa.ListarGrupoC();
+            CbGrupo.DisplayMember = "Grupo";
+            CbGrupo.ValueMember = "id";
         }
 
 
@@ -247,6 +266,16 @@ namespace Sistema_CB
             
             objCausa.CrearPdfGrupo(oCausa,portador);
         
+        }
+
+        private void c(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

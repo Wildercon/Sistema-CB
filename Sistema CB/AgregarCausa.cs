@@ -91,10 +91,18 @@ namespace Sistema_CB
                 Grupo = Convert.ToInt32(cbGrupo.SelectedValue),
                 Observacion = txtObservaciones.Text
             };
-            objCausa.AgregarCausa(oCausa);
-            cbCliente.SelectedValue = -1;
-            txtObservaciones.Text = "";
-            txtDireccion.Text = "";
+            string error = objCausa.AgregarCausa(oCausa);
+            if (error == string.Empty)
+            {
+                cbCliente.SelectedValue = -1;
+                txtObservaciones.Text = "";
+                txtDireccion.Text = "";
+            }
+            else
+            {
+                MessageBox.Show(error);
+            }
+            
         }
 
         private void cbCliente_SelectedIndexChanged(object sender, EventArgs e)

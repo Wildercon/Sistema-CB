@@ -156,8 +156,9 @@ namespace CapaDatos
 
         }
 
-        public void VerificarClienteCredito(int dato)
+        public bool VerificarClienteCredito(int dato)
         {
+            bool Verificador = false;
             try
             {
                 comando.Connection = conexionBD.abrirconexion();
@@ -167,27 +168,17 @@ namespace CapaDatos
                 LeerFilas = comando.ExecuteReader();
                 if (LeerFilas.Read() == true)
                 {
-                    datos = LeerFilas[0].ToString();
-                    mensaje = string.Format(datos);
-                    //messagebox.Show("Cliente con Deuda en Credito");
-                    LeerFilas.Close();
-                    comando.Parameters.Clear();
-                    conexionBD.cerrarConexion();
-
-                }
-                else
-                {
-                    LeerFilas.Close();
-                    comando.Parameters.Clear();
-                    conexionBD.cerrarConexion();
-                }
-
+                    Verificador = true;
+                }                
             }
             catch (MySqlException e)
             {
-                //messagebox.Show(e.ToString());
+                e.ToString();
             }
-
+            LeerFilas.Close();
+            comando.Parameters.Clear();
+            conexionBD.cerrarConexion();
+            return Verificador; 
         }
         public string SumarRecibidoDia(string dato)
         {
@@ -329,7 +320,7 @@ namespace CapaDatos
             return tabla;   
         }
 
-        public DataTable BuscarBauCliente(Bauche datos)
+        public DataTable BuscarBauCliente(string NombreCliente)
         {
             DataTable tabla = new DataTable();
             try
@@ -337,7 +328,7 @@ namespace CapaDatos
                 comando.Connection = conexionBD.abrirconexion();
                 comando.CommandText = "BuscarBauCliente";
                 comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("Cliente", datos.cliente.NombreCliente);
+                comando.Parameters.AddWithValue("Cliente", NombreCliente);
                 LeerFilas = comando.ExecuteReader();
                 tabla.Load(LeerFilas);
             }
