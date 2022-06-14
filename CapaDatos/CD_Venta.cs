@@ -78,5 +78,31 @@ namespace CapaDatos
             conexionBD.cerrarConexion();
             return tabla;
         }
+
+        public bool verificarBaucheRepetidoVenta(int idBauche)
+        {
+            bool verificar = false;
+            try
+            {
+                comando.Connection = conexionBD.abrirconexion();
+                comando.CommandText = "select Bauche from ventas where Bauche = @idBauche ";
+                comando.CommandType = CommandType.Text;
+                comando.Parameters.AddWithValue("@idBauche", idBauche);
+                LeerFilas = comando.ExecuteReader();
+                if (LeerFilas.Read())
+                {
+                    verificar = true;
+                }
+            }
+            catch (MySqlException e)
+            {
+                //messagebox.Show(e.ToString());
+            }
+            LeerFilas.Close();
+            conexionBD.cerrarConexion();
+            return verificar;
+
+
+        }
     }
 }

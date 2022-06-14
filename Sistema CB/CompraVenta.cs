@@ -106,20 +106,28 @@ namespace Sistema_CB
 
         private void btnAgregarVenta_Click(object sender, EventArgs e)
         {
-            
-            CapaEntidad.Venta oVenta = new CapaEntidad.Venta()
+            bool Verificar = objVenta.verificarBaucheRepetidoVenta(Convert.ToInt32(txtBauche.Text));
+            if (Verificar)
             {
-                Bauche = new Bauche() { Idbauche = Convert.ToInt32(txtBauche.Text) },
-                Vendedor = new Vendedor() { Idvendedor = Convert.ToInt32(cbVendedor.SelectedValue) },
-                Monto = Convert.ToDouble(txtMonto.Text),
-                Fecha = fecha,
-                Estado = "+",
-                
-            };
-            objVendedor.AumentarMontoVendedor(oVenta);
-            oVenta.Total = objVendedor.ControlMontoV(oVenta);
-            objVenta.AgregarVenta(oVenta);
-            CargarVendedores();
+                MessageBox.Show("Ya se Registro este Codigo");
+            }
+            else
+            {
+                CapaEntidad.Venta oVenta = new CapaEntidad.Venta()
+                {
+                    Bauche = new Bauche() { Idbauche = Convert.ToInt32(txtBauche.Text) },
+                    Vendedor = new Vendedor() { Idvendedor = Convert.ToInt32(cbVendedor.SelectedValue) },
+                    Monto = Convert.ToDouble(txtMonto.Text),
+                    Fecha = fecha,
+                    Estado = "+",
+
+                };
+
+                objVendedor.AumentarMontoVendedor(oVenta);
+                oVenta.Total = objVendedor.ControlMontoV(oVenta);
+                objVenta.AgregarVenta(oVenta);
+                CargarVendedores();
+            }                                   
         }
 
         private void btnEntrega_Click(object sender, EventArgs e)
@@ -244,7 +252,11 @@ namespace Sistema_CB
 
         private void dataGridVentas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            txtBauche.Text = dataGridVentas.CurrentRow.Cells["idBauche"].Value.ToString();
+            if (dataGridVentas.Columns.Contains("idBauche"))
+            {
+                txtBauche.Text = dataGridVentas.CurrentRow.Cells["idBauche"].Value.ToString();
+            }
+            
         }
 
         private void btn_Cstavendedor_Click(object sender, EventArgs e)
