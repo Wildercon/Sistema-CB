@@ -67,6 +67,7 @@ namespace Sistema_CB
         }
         private void DisableButton()
         {
+
             if (currentBtn != null)
             {
                 currentBtn.BackColor = Color.FromArgb(31, 30, 68);
@@ -80,6 +81,10 @@ namespace Sistema_CB
 
         private void abrirFormularioHijo(Form formularioHijo)
         {
+            if (FormularioHijo != null)
+            {
+                FormularioHijo.Close();
+            }
             FormularioHijo = formularioHijo;
             formularioHijo.TopLevel = false;
             formularioHijo.FormBorderStyle = FormBorderStyle.None;

@@ -201,7 +201,8 @@ namespace Sistema_CB
 
         private void btnPdf_Click(object sender, EventArgs e)
         {           
-            objCtrlBauche.CrearPdf();
+            string mensaje = objCtrlBauche.CrearPdf();
+            MessageBox.Show(mensaje);
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)

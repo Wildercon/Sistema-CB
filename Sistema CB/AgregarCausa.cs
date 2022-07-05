@@ -111,7 +111,11 @@ namespace Sistema_CB
             {
                 int dato = Convert.ToInt32(cbCliente.SelectedValue);
                 txtDireccion.Text = objCtrlBauche.CompletarTxtDireccion(dato);
-                objCtrlBauche.VerificarBaucheDeuda(dato);
+                string verificar = objCtrlBauche.VerificarBaucheDeuda(dato);
+                if (verificar != string.Empty)
+                {
+                    MessageBox.Show(verificar);
+                }
             }
         }
 

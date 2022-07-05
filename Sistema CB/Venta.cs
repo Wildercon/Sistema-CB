@@ -109,7 +109,11 @@ namespace Sistema_CB
                     }
                 }              
                 
-                objCtrlBauche.AgregarBauche(oBauche);
+                string error = objCtrlBauche.AgregarBauche(oBauche);
+                if(error != "")
+                {
+                    MessageBox.Show(error);
+                }
                 //objCtrlBauche.AumentarMontoBanco(oBauche);
                                
             }
@@ -244,7 +248,11 @@ namespace Sistema_CB
                 {
                     Idbauche = Convert.ToInt32(lbIdFactura.Text)
                 };
-                objCtrlBauche.VerificarBaucheVentaD(oBauche);
+                string error = objCtrlBauche.VerificarBaucheVentaD(oBauche);
+                if (error != string.Empty)
+                {
+                    MessageBox.Show(error);
+                }
                 CargarProductos();
                 calcularFactura();                             
             }
@@ -444,12 +452,16 @@ namespace Sistema_CB
             {
                 int dato = Convert.ToInt32(cbCliente.SelectedValue);
                 txtDireccion.Text = objCtrlBauche.CompletarTxtDireccion(dato);
-                objCtrlBauche.VerificarBaucheDeuda(dato);
                 if (objCtrlBauche.VerificarClienteCredito(dato))
                 {
                     MessageBox.Show("Cliente Tiene Deuda en Credito","Mensaje",MessageBoxButtons.OK,MessageBoxIcon.Information);
-                } ;
-                
+                };
+                string verificar = objCtrlBauche.VerificarBaucheDeuda(dato);
+                if (verificar != string.Empty)
+                {
+                    MessageBox.Show(verificar);
+                }
+
                 if (operacion == "Editar")
                 {
                     Bauche oBauche = new Bauche()

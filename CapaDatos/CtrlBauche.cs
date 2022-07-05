@@ -23,12 +23,11 @@ namespace CapaDatos
         private Conexion conexionBD = new Conexion();
         private MySqlCommand comando = new MySqlCommand();
         private MySqlDataReader LeerFilas;
-        private string datos ;
-        private string mensaje = "";
 
 
         public string CompletarTxtDireccion(int dato)
         {
+            string mensaje = string.Empty;
             try
             {
                 comando.Connection = conexionBD.abrirconexion();
@@ -38,23 +37,16 @@ namespace CapaDatos
                 LeerFilas = comando.ExecuteReader();
                 if (LeerFilas.Read() == true)
                 {
-                    datos = LeerFilas[0].ToString();
-                    mensaje = string.Format(datos);
-                    LeerFilas.Close();
-                    comando.Parameters.Clear();
-                    conexionBD.cerrarConexion();
-                }
-                else
-                {
-                    LeerFilas.Close();
-                    comando.Parameters.Clear();
-                    conexionBD.cerrarConexion();
+                    mensaje = LeerFilas[0].ToString();
+                    
                 }
             }catch(MySqlException e)
             {
                 //messagebox.Show(e.ToString());
             }
-            
+            LeerFilas.Close();
+            comando.Parameters.Clear();
+            conexionBD.cerrarConexion();
             return mensaje;
         }
         
@@ -63,6 +55,7 @@ namespace CapaDatos
 
         public string MostrarPreciodolar()
         {
+            string mensaje = string.Empty;
             try
             {
                 comando.Connection = conexionBD.abrirconexion();
@@ -71,24 +64,16 @@ namespace CapaDatos
                 LeerFilas = comando.ExecuteReader();
                 if (LeerFilas.Read() == true)
                 {
-                    datos = LeerFilas[0].ToString();
-                    mensaje = string.Format(datos);
-                    LeerFilas.Close();
-                    comando.Parameters.Clear();
-                    conexionBD.cerrarConexion();
+                    mensaje = LeerFilas[0].ToString();                   
                 }
-                else
-                {
-                    LeerFilas.Close();
-                    comando.Parameters.Clear();
-                    conexionBD.cerrarConexion();
-                }
-
             }
             catch (MySqlException e)
             {
                 //messagebox.Show(e.ToString());
             }
+            LeerFilas.Close();
+            comando.Parameters.Clear();
+            conexionBD.cerrarConexion();
             return mensaje;
         }
 
@@ -96,8 +81,10 @@ namespace CapaDatos
 
         
 
-        public void VerificarBaucheDeuda(int dato)
+        public string VerificarBaucheDeuda(int dato)
         {
+            string mensaje = string.Empty;
+            string Bauche = string.Empty;
             try
             {
                 comando.Connection = conexionBD.abrirconexion();
@@ -107,31 +94,26 @@ namespace CapaDatos
                 LeerFilas = comando.ExecuteReader();
                 if (LeerFilas.Read() == true)
                 {
-                    datos = LeerFilas[0].ToString();
-                    mensaje = string.Format(datos);
-                    //messagebox.Show("Bauche con estado debe codigo "+ mensaje);
-                    LeerFilas.Close();
-                    comando.Parameters.Clear();
-                    conexionBD.cerrarConexion();
+                    Bauche = LeerFilas[0].ToString();
+                    mensaje = "Bauche con estado debe codigo " + Bauche;
 
-                }
-                else
-                {
-                    LeerFilas.Close();
-                    comando.Parameters.Clear();
-                    conexionBD.cerrarConexion();
                 }
 
             }
             catch (MySqlException e)
             {
-                //messagebox.Show(e.ToString());
+                mensaje = e.ToString();
             }
-            
+            LeerFilas.Close();
+            comando.Parameters.Clear();
+            conexionBD.cerrarConexion();
+            return mensaje;    
         }
 
-        public void VerificarBaucheVentaD(Bauche dato)
+        public string VerificarBaucheVentaD(Bauche dato)
         {
+            string Mensaje = String.Empty;
+            string Nvendedor = string.Empty;
             try
             {
                 comando.Connection = conexionBD.abrirconexion();
@@ -141,19 +123,19 @@ namespace CapaDatos
                 LeerFilas = comando.ExecuteReader();
                 if (LeerFilas.Read() == true)
                 {
-                    mensaje = LeerFilas[0].ToString();
-                    //messagebox.Show("Bauche Utilizado Por Vendedor" + mensaje);
+                    Nvendedor = LeerFilas[0].ToString();
+                    Mensaje ="Bauche Utilizado Por Vendedor" + Nvendedor;
                 }
 
             }
             catch (MySqlException e)
             {
-                //messagebox.Show(e.ToString());
+                Mensaje = e.Number.ToString();
             }
             LeerFilas.Close();
             comando.Parameters.Clear();
             conexionBD.cerrarConexion();
-
+            return Mensaje;
         }
 
         public bool VerificarClienteCredito(int dato)
@@ -182,6 +164,7 @@ namespace CapaDatos
         }
         public string SumarRecibidoDia(string dato)
         {
+            string mensaje = string.Empty;
             try
             {
                 comando.Connection = conexionBD.abrirconexion();
@@ -191,29 +174,22 @@ namespace CapaDatos
                 LeerFilas = comando.ExecuteReader();
                 if (LeerFilas.Read() == true)
                 {
-                    datos = LeerFilas[0].ToString();
-                    mensaje = string.Format(datos);
-                    LeerFilas.Close();
-                    comando.Parameters.Clear();
-                    conexionBD.cerrarConexion();
+                    mensaje = LeerFilas[0].ToString();  
                 }
-                else
-                {
-                    LeerFilas.Close();
-                    comando.Parameters.Clear();
-                    conexionBD.cerrarConexion();
-                }
-
             }
             catch (MySqlException e)
             {
-                //messagebox.Show(e.ToString());
+                mensaje = e.Number.ToString();
             }
+            LeerFilas.Close();
+            comando.Parameters.Clear();
+            conexionBD.cerrarConexion();
             return mensaje;
         }
 
         public string SumarVendidoD(string dato)
         {
+            string mensaje = string.Empty;
             try
             {
                 comando.Connection = conexionBD.abrirconexion();
@@ -223,24 +199,17 @@ namespace CapaDatos
                 LeerFilas = comando.ExecuteReader();
                 if (LeerFilas.Read() == true)
                 {
-                    datos = LeerFilas[0].ToString();
-                    mensaje = string.Format(datos);
-                    LeerFilas.Close();
-                    comando.Parameters.Clear();
-                    conexionBD.cerrarConexion();
-                }
-                else
-                {
-                    LeerFilas.Close();
-                    comando.Parameters.Clear();
-                    conexionBD.cerrarConexion();
-                }
+                    mensaje = LeerFilas[0].ToString();
 
+                }
             }
             catch (MySqlException e)
             {
-                //messagebox.Show(e.ToString());
+                mensaje = e.ToString();
             }
+            LeerFilas.Close();
+            comando.Parameters.Clear();
+            conexionBD.cerrarConexion();
             return mensaje;
         }
         public DataTable CargarBauche()
@@ -374,8 +343,9 @@ namespace CapaDatos
         
 
         
-        public void AgregarBauche(Bauche datos)
+        public string AgregarBauche(Bauche datos)
         {
+            string mensaje = string.Empty;
             try
             {
                 comando.Connection = conexionBD.abrirconexion();
@@ -395,10 +365,10 @@ namespace CapaDatos
                 switch (e.Number)
                 {
                     case 1452:
-                        //messagebox.Show("Cliente no esta Registrado");
+                        mensaje = "Cliente no esta Registrado";
                         break;
                     default:
-                        //messagebox.Show(e.Number.ToString());
+                        mensaje = e.Number.ToString();
                         break;
                 }
 
@@ -406,6 +376,7 @@ namespace CapaDatos
 
             comando.Parameters.Clear();
             conexionBD.cerrarConexion();
+            return mensaje;
         }
         
         
@@ -473,15 +444,11 @@ namespace CapaDatos
             }
             comando.Parameters.Clear();
             conexionBD.cerrarConexion();
-        }
+        }        
 
-  
-        
-       
-        
-
-        public void CrearPdf()
+        public string CrearPdf()
         {
+            string mensaje = string.Empty;
             PdfWriter pdfwriter = new PdfWriter(@"C:\Users\Cb\Documents\Reporte.pdf");
             PdfDocument pdf = new PdfDocument(pdfwriter);
             Document documento = new Document(pdf, PageSize.LETTER);
@@ -516,16 +483,18 @@ namespace CapaDatos
                     tabla.AddCell(new Cell().Add(new Paragraph(LeerFilas["Cod_Billete"].ToString()).SetFont(fontcontenido)));
                     tabla.AddCell(new Cell().Add(new Paragraph(LeerFilas["Observacion"].ToString()).SetFont(fontcontenido)));
                 }
-            }catch(MySqlException e)
+                mensaje = "Se Genero el reporte";
+            }
+            catch(MySqlException e)
             {
-                //messagebox.Show(e.ToString());
+                mensaje = e.Number.ToString();
             }
 
             documento.Add(tabla);
             documento.Close();
-            //messagebox.Show("Se Genero el reporte");
             LeerFilas.Close();
             conexionBD.cerrarConexion();
+            return mensaje;
         }
 
         
@@ -550,11 +519,6 @@ namespace CapaDatos
             return tabla;
         }
 
-        
-        
-
-       
-
         public DataTable TodasTransferencia()
         {
             DataTable tabla = new DataTable();
@@ -574,18 +538,7 @@ namespace CapaDatos
             LeerFilas.Close();
             conexionBD.cerrarConexion();
             return tabla;
-        }
-
-        
-
-        
-        
-
-        
-
-        
-        
-            
+        }   
 
         public DataTable CargarDeudores()
         {
@@ -609,11 +562,5 @@ namespace CapaDatos
 
 
         }
-
-        
-        
-        
-
-
     }
 }
