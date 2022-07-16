@@ -523,7 +523,21 @@ namespace Sistema_CB
             }
         }
 
-
+        private void btnVentaDv_Click(object sender, EventArgs e)
+        {
+            if (dataGridBauche.SelectedRows.Count > 0)
+            {
+                int bauche = Convert.ToInt32(dataGridBauche.CurrentRow.Cells["idBauche"].Value);
+                double Monto = Convert.ToDouble(dataGridBauche.CurrentRow.Cells["monto"].Value);
+                Md_VentaDv Venta = new Md_VentaDv(bauche, Monto);
+                Venta.Show();
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un Bauche","Informacion",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+            }
+            
+        }
     }   
 
 }

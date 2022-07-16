@@ -99,8 +99,6 @@ namespace Sistema_CB
             {
                 if (row.Cells["op"].Value.ToString() == "-")
                     row.DefaultCellStyle.BackColor = Color.FromArgb(229,50,50);
-
-
             }
         }
 
@@ -127,6 +125,10 @@ namespace Sistema_CB
                 oVenta.Total = objVendedor.ControlMontoV(oVenta);
                 objVenta.AgregarVenta(oVenta);
                 CargarVendedores();
+                cbVendedor.SelectedIndex = -1;
+                txtBauche.Text = "";
+                txtMonto.Text = "";
+                txtCodigo.Text = "";
             }                                   
         }
 
