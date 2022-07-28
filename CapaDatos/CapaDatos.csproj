@@ -169,6 +169,7 @@
     <Compile Include="CD_Venta.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="CtrlBauche.cs" />
+    <Compile Include="CD_PendCobrarBs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

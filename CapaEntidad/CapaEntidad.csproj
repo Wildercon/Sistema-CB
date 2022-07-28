@@ -49,6 +49,7 @@
     <Compile Include="Cuentas.cs" />
     <Compile Include="Datos.cs" />
     <Compile Include="Factura.cs" />
+    <Compile Include="PendCobrarBs.cs" />
     <Compile Include="Pendientexcobrar.cs" />
     <Compile Include="Producto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

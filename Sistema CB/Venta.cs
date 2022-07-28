@@ -20,12 +20,12 @@ namespace Sistema_CB
         CD_Factura objFactura = new CD_Factura();
         CD_Datos objDatos = new CD_Datos();
         CD_Producto objProducto = new CD_Producto();
+        int idbauche = 0;
 
         string operacion = "Insertar";
         public Venta()
         {
             InitializeComponent();
-
         }
         private void FormBauche_Load(object sender, EventArgs e)
         {
@@ -56,16 +56,19 @@ namespace Sistema_CB
             dataGridBauche.Columns["observaciones"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
 
-        private void CargarProductos()
+        public string CargarProductos()
         {
-            Factura oFactura = new Factura() { bauche = new Bauche() { Idbauche= Convert.ToInt32(lbIdFactura.Text) } };
+            string uso = string.Empty;
+            Factura oFactura = new Factura() { bauche = new Bauche() { Idbauche = Convert.ToInt32(lbIdFactura.Text) } };
             dataGridProductos.DataSource = objFactura.CargarProductos(oFactura);
             dataGridProductos.Columns["idfactura"].Visible = false;
             dataGridProductos.Columns["cantidad"].Width = 80;
             dataGridProductos.Columns["producto"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            return uso;
         }
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            if (txtBuscar.Text == "") return;
             Bauche oBauche = new Bauche();
             if (rdbCodigo.Checked)
             {
@@ -244,6 +247,7 @@ namespace Sistema_CB
                 txtFecha.Enabled = false;
                 txtMonto.Enabled = false;
                 lblBauche.Text = txtMonto.Text;
+                idbauche = Convert.ToInt32(lbIdFactura.Text);
                 Bauche oBauche = new Bauche()
                 {
                     Idbauche = Convert.ToInt32(lbIdFactura.Text)
@@ -447,25 +451,38 @@ namespace Sistema_CB
 
         private void cbCliente_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
-            if(cbCliente.SelectedIndex > 0)
+            if (operacion == "Editar")
             {
-                int dato = Convert.ToInt32(cbCliente.SelectedValue);
-                txtDireccion.Text = objCtrlBauche.CompletarTxtDireccion(dato);
-                if (objCtrlBauche.VerificarClienteCredito(dato))
+                if (cbCliente.SelectedIndex > 0)
                 {
-                    MessageBox.Show("Cliente Tiene Deuda en Credito","Mensaje",MessageBoxButtons.OK,MessageBoxIcon.Information);
-                };
-                string verificar = objCtrlBauche.VerificarBaucheDeuda(dato);
-                if (verificar != string.Empty)
-                {
-                    MessageBox.Show(verificar);
-                }
-
-                if (operacion == "Editar")
-                {
-                    Bauche oBauche = new Bauche()
+                    int dato = Convert.ToInt32(cbCliente.SelectedValue);
+                    txtDireccion.Text = objCtrlBauche.CompletarTxtDireccion(dato);
+                    if (objCtrlBauche.VerificarClienteCredito(dato))
                     {
+                        MessageBox.Show("Cliente Tiene Deuda en Credito","Mensaje",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    };
+                    string verificar = objCtrlBauche.VerificarBaucheDeuda(dato);
+                    if (verificar != string.Empty)
+                    {
+                     MessageBox.Show(verificar);
+                    }
+                    List<PendCobrarBs> lista = new CD_PendCobrarBs().ConsultarDeuda();
+                    double montoTotalDeuda = (from d in lista where d.oCliente.Id == Convert.ToInt32(cbCliente.SelectedValue) select d.Total).FirstOrDefault();
+                    if (montoTotalDeuda > 0)
+                    {
+                        Form existe = Application.OpenForms.OfType<Form>().Where(pre => pre.Name == "Md_PendCobrar").SingleOrDefault<Form>();
+                        if(existe == null)
+                        {
+                            Form deuda = new Md_PendCobrar(cbCliente.SelectedIndex, Convert.ToInt32(lbIdFactura.Text), Convert.ToDouble(txtMonto.Text));
+                            deuda.Show();
+                        }
+
+                    }
+
+                    if (operacion == "Editar")
+                    {
+                        Bauche oBauche = new Bauche()
+                        {
                         Codigo = Convert.ToInt32(txtCodigo.Text),
                         Fecha = txtFecha.Text,
                         Monto = Convert.ToDouble(txtMonto.Text),
@@ -474,12 +491,12 @@ namespace Sistema_CB
                         Estado = cbEstado.Text,
                         Observacion = txtObervaciones.Text,
                         Idbauche = Convert.ToInt32(lbIdFactura.Text)
-                    };
+                        };
                     objCtrlBauche.EditarBauche(oBauche);
 
+                    }
                 }
             }
-            
         }
 
         private void txtPrecioDolar_KeyPress(object sender, KeyPressEventArgs e)
@@ -537,6 +554,12 @@ namespace Sistema_CB
                 MessageBox.Show("Seleccione un Bauche","Informacion",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
             }
             
+        }
+
+        private void btnDeuda_Click(object sender, EventArgs e)
+        {
+            Form Pcbs = new Md_PendCobrar(Convert.ToInt32(cbCliente.SelectedIndex));
+            Pcbs.Show();
         }
     }   
 

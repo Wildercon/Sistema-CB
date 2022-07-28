@@ -86,6 +86,7 @@ namespace Sistema_CB
             this.txtPrecioDolar = new System.Windows.Forms.TextBox();
             this.btnEstado = new System.Windows.Forms.Button();
             this.btnVentaDv = new System.Windows.Forms.Button();
+            this.btnDeuda = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridBauche)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -708,12 +709,25 @@ namespace Sistema_CB
             this.btnVentaDv.UseVisualStyleBackColor = true;
             this.btnVentaDv.Click += new System.EventHandler(this.btnVentaDv_Click);
             // 
+            // btnDeuda
+            // 
+            this.btnDeuda.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeuda.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnDeuda.Location = new System.Drawing.Point(743, 464);
+            this.btnDeuda.Name = "btnDeuda";
+            this.btnDeuda.Size = new System.Drawing.Size(125, 31);
+            this.btnDeuda.TabIndex = 22;
+            this.btnDeuda.Text = "Agregar Deuda";
+            this.btnDeuda.UseVisualStyleBackColor = true;
+            this.btnDeuda.Click += new System.EventHandler(this.btnDeuda_Click);
+            // 
             // Venta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(33)))), ((int)(((byte)(74)))));
             this.ClientSize = new System.Drawing.Size(933, 503);
+            this.Controls.Add(this.btnDeuda);
             this.Controls.Add(this.btnVentaDv);
             this.Controls.Add(this.btnEstado);
             this.Controls.Add(this.txtPrecioDolar);
@@ -802,5 +816,6 @@ namespace Sistema_CB
         private System.Windows.Forms.TextBox txtCantProd;
         private System.Windows.Forms.TextBox txtPrecio;
         private System.Windows.Forms.Button btnVentaDv;
+        private System.Windows.Forms.Button btnDeuda;
     }
 }
